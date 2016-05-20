@@ -104,7 +104,11 @@ session_start();
                  $_SESSION['planlevel'] = $activation->loginfetch['planlevel'];
                  $_SESSION['useremail'] = $activation->loginfetch['useremail'];
                  $_SESSION['userpassword'] = $activation->loginfetch['userpassword'];
-                 $_SESSION['rewards'] = $activation->loginfetch['rewards']; ?>
+                 $_SESSION['rewards'] = $activation->loginfetch['rewards']; 
+                 $_SESSION['number'] =  $activation->loginfetch['cardnumber'];
+                 $_SESSION['valid'] =  $activation->loginfetch['validdate'];
+                ?>
+                
                 <script>
                 swal("您的账号已成功激活!", "请点击右上角会员中心来查看或修改您的个人信息，谢谢！", "success")
                 </script>
