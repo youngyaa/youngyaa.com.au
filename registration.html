@@ -2,6 +2,8 @@
 header('Content-Type: text/html; charset=utf-8');
 include "include/connection.php";
 include "include/functions.php";
+include "include/classes.php";
+session_start();
 ?>
 
 
@@ -12,7 +14,7 @@ include "include/functions.php";
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en-US">  <!--<![endif]-->
 	<head>
 	
-		<title>Login - Style 1 | Nantria</title>
+		<title>云涯体育传媒 | 新视野新态度</title>
 		
 		<!-- META DATA -->
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
@@ -89,7 +91,7 @@ include "include/functions.php";
 										<i class="ion-navicon"></i>
 									</button>
 									<div class="header-logo">
-										<a href="index.html">
+										<a href="index.html?login=YES">
 											<img src="images/logo_youngyaa_light.png" class="logo-light" alt="">
 											<img src="images/logo_youngyaa_dark.png" class="logo-dark" alt="">
 										</a>
@@ -106,21 +108,41 @@ include "include/functions.php";
 											<!-- Top Cart -->
 											<div class="header-widget" >
 										
-                                                <a href="#mfp-login-modal" class="open-popup-link trigger-widget">
                                                 
-													<i class="fa fa-user"></i>
+                                                <a href="#mfp-login-modal<?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo "1";} ?>" class="open-popup-link trigger-widget">
+                                                
+													<i class="fa fa-user"><?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo " Hi,".$_SESSION['username'];} ?></i>
 											
 												</a>
 											
 											</div>
                                             
+                        <div id="mfp-login-modal1" class="mfp-modal mfp-modal-small mfp-hide">
+							<div class="mfp-modal-content">
+								<h3 class="heading-uppercase text-center margintop-40 marginbottom-40">亲爱的云涯会员，您好</h3>
+							
+                                <button class="button button-noradius button-fullwidth button-border border-thin nomargin" ><a href = "member-profile.html?login=YES">会员中心</a></button>
+                                <hr>
+                                   <button class="button button-noradius button-fullwidth button-border border-thin nomargin" ><a href = "logout.php">登出账号</a></button>
+							</div>
+						</div>                
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                        <!-- below is the modal for login and register -->        
                         <div id="mfp-login-modal" class="mfp-modal mfp-modal-small mfp-hide">
 							<div class="mfp-modal-content">
 								<h3 class="heading-uppercase text-center margintop-40 marginbottom-40">Login Here</h3>
-								<form class="nobottommargin">
-									<input type="email" id="inputEmail" class="form-control input-border-bottom" placeholder="Email address" required>
-									<input type="password" id="inputPassword" class="form-control input-border-bottom" placeholder="Password" required>
-                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href="member-profile.html">登入</a></button>
+								<form class="nobottommargin" id = "loginform" name = "loginform" method = "POST" action="ajax_process.php">
+									<input type="email" id="loginEmail" name = "loginEmail" class="form-control input-border-bottom" placeholder="Email address" required>
+									<input type="password" id="loginPassword"  name = "loginPassword" class="form-control input-border-bottom" placeholder="Password" required>
+                                     
+                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" id="loginbutton" type="submit">登入</button>
                                     
                              
 									<div class="row">
@@ -135,8 +157,9 @@ include "include/functions.php";
 											<a href="#" class="display-block text-right margintop-10">Forgot password?</a>
 										</div>
 									</div>
-                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href = "registration.html">我要注册</a></button>
+                                    
 								</form><!-- /form -->
+                                <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href = "registration.html">我要注册</a></button>
 							</div>
 						</div>
 											
@@ -148,36 +171,36 @@ include "include/functions.php";
 									<ul class="menu">
 
 										<li>
-											<a href="index.html">首页</a>
+											<a href="index.html?login=YES">首页</a>
 									
 										</li>
 
 										<li>
-											<a href="about.html">关于我们</a>
+											<a href="about.html?login=YES">关于我们</a>
 										
 										</li>
                                         <li>
-											<a href="pricing-2.html">会员计划</a>
+											<a href="blank-page.html">会员计划</a>
 										
 										</li>
 										
 										<li>
-											<a href="events.html">我们的活动</a>
+											<a href="blank-page.html">我们的活动</a>
 										
 										</li>
 										
 										<li>
-											<a href="discount.html">合作折扣伙伴</a>
+											<a href="blank-page.html">合作折扣伙伴</a>
 											
 										</li>
 										
 										<li>
-											<a href="blog.html">新闻博客</a>
+											<a href="blank-page.html">新闻博客</a>
 											
 										</li>
 										
 										<li>
-											<a href="contact.html">联系我们</a>
+											<a href="blank-page.html">联系我们</a>
                                         </li>
 											
 								</div>

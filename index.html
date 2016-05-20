@@ -4,7 +4,6 @@ include "include/connection.php";
 include "include/functions.php";
 include "include/classes.php";
 session_start();
-
 ?>
 <!DOCTYPE html>
 
@@ -141,7 +140,7 @@ session_start();
 										<i class="ion-navicon"></i>
 									</button>
 									<div class="header-logo">
-										<a href="index.html">
+										<a href="index.html?login=YES">
 											<img src="images/logo_youngyaa_light.png" class="logo-light" alt="">
 											<img src="images/logo_youngyaa_dark.png" class="logo-dark" alt="">
 										</a>
@@ -220,12 +219,12 @@ session_start();
 									<ul class="menu">
 
 										<li>
-											<a href="index.html">首页</a>
+											<a href="index.html?login=YES">首页</a>
 									
 										</li>
 
 										<li>
-											<a href="blank-page.html">关于我们</a>
+											<a href="about.html?login=YES">关于我们</a>
 										
 										</li>
                                         <li>
@@ -522,7 +521,7 @@ session_start();
 							<h3 class="heading-uppercase">活动</h3>
 							<div class="divider divider-center divider-dark"></div>
 							<p>我们擅长举办体育及娱乐类活动， 承办各种节日庆祝项目</p>
-                                <a href="registration.html" class="button button-red"><i class="fa fa-gift"></i>加入我们</a>
+                                <a href="registration.html?login=YES" class="button button-red"><i class="fa fa-gift"></i>加入我们</a>
 						</div>
 						<!-- Blog Posts -->
 						<div class="row isotope-container blog-container">
@@ -637,7 +636,7 @@ session_start();
 							<h3 class="heading-uppercase">合作品牌折扣</h3>
 							<div class="divider divider-center divider-dark"></div>
 							<p>在线折扣平台为会员打造专属的特惠服务，众多一线品牌加盟，乐享生活，尊享折扣！</p>
-                                <a href="registration.html" class="button button-blue"><i class="fa fa-gift"></i>注册会员，立享折扣</a>
+                                <a href="registration.html?login=YES" class="button button-blue"><i class="fa fa-gift"></i>注册会员，立享折扣</a>
 						</div>
 			
   	<div class="container-fluid paddingbottom-60 owl-section">
@@ -732,7 +731,7 @@ session_start();
 										</div>
 										<div class="profile-content">
                                             
-                                            <a href="https://www.google.com.au/"><h5 class="name heading-uppercase"> New Balance</h5></a>
+                                            <a href="http://www.newbalance.com.au/"><h5 class="name heading-uppercase"> New Balance</h5></a>
                                         
 											<p class="role">体育运动领导品牌</p>
 											<nav class="socials-icons">
@@ -755,7 +754,7 @@ session_start();
 										</div>
 										<div class="profile-content">
                                             
-											<h5 class="name heading-uppercase"> 四川航空</h5>
+											<a href="http://www.scal.com.cn/"><h5 class="name heading-uppercase"> 四川航空</h5></a>
                                         
 											<p class="role">中国知名航空企业</p>
 											<nav class="socials-icons">
@@ -778,7 +777,7 @@ session_start();
 										</div>
 										<div class="profile-content">
                                             
-											<h5 class="name heading-uppercase"> 万盛伟业</h5>
+											<a href="http://www.vpigroup.com.au/"><h5 class="name heading-uppercase"> 万盛伟业</h5></a>
                                         
 											<p class="role">澳洲专业地产咨询公司</p>
 											<nav class="socials-icons">
@@ -801,7 +800,7 @@ session_start();
 										</div>
 										<div class="profile-content">
                                             
-											<h5 class="name heading-uppercase">Luxury Ugg</h5>
+											<a href="http://luxuryugg.com.au/"><h5 class="name heading-uppercase">Luxury Ugg</h5></a>
                                         
 											<p class="role">澳洲雪地靴知名品牌</p>
 											<nav class="socials-icons">
@@ -847,7 +846,7 @@ session_start();
 										</div>
 										<div class="profile-content">
                                             
-											<h5 class="name heading-uppercase">White Glo</h5>
+											<a href="http://www.whiteglo.com/"><h5 class="name heading-uppercase">White Glo</h5></a>
                                         
 											<p class="role">专业美白牙膏</p>
 											<nav class="socials-icons">
@@ -862,29 +861,7 @@ session_start();
 									</div>
 								</div>
                                 </li>
-                                   <li>
-								  <div class="profile-card">
-									<div class="box-container">
-										<div class="user-image">
-											<img src="images\logo\AUIJewellers.jpg" alt="">
-										</div>
-										<div class="profile-content">
-                                            
-											<h5 class="name heading-uppercase">澳亿珠宝</h5>
-                                        
-											<p class="role">知名珠宝品牌</p>
-											<nav class="socials-icons">
-												<ul>
-													<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
-													<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
-													<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
-													<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
-												</ul>
-											</nav>
-										</div>
-									</div>
-								</div>
-                                </li>
+
                             
                               
                             </ul>
@@ -902,38 +879,38 @@ session_start();
 						<div class="row">
 							<div class="col-md-4 col-sm-6">
 								<aside class="widget widget_text">
-									<h5 class="widget-title">About Us</h5>
-									<p>We are creative developers. Made by Bluminethemes is sign under beautiful site templates created by us for people like us.</p>
+									<h5 class="widget-title">关于我们</h5>
+									<p>Young yaa云涯是专业的体育文化传媒公司，业务包括体育营销、赛事运营、品牌推广、赞助商服务，以及在线折扣及周边娱乐等。旨在中国及澳大利亚各大城市承办各种文体赛事和活动，促进中、澳文化及商业的合作交流。</p>
 								</aside>
 							</div>
 							<div class="col-md-2 col-md-offset-2 col-sm-6">
 								<aside class="widget widget_text">
-									<h5 class="widget-title">Company</h5>
+									<h5 class="widget-title">公司</h5>
 									<ul>
-										<li><a href="about-1.html">About Company</a></li>
-										<li><a href="about-2.html">What We Do</a></li>
-										<li><a href="about-3.html">What We Think</a></li>
+										<li><a href="about.html?login=YES">关于公司</a></li>
+										<li><a href="about.html?login=YES">我们的事业</a></li>
+										<li><a href="about.html?login=YES">我们的想法</a></li>
 									</ul>
 								</aside>
 							</div>
 							<div class="col-md-2 col-sm-6">
 								<aside class="widget widget_text">
-									<h5 class="widget-title">Services</h5>
+									<h5 class="widget-title">我们的服务</h5>
 									<ul>
-										<li><a href="services-1.html">Graphic Design</a></li>
-										<li><a href="services-2.html">Web Development</a></li>
-										<li><a href="services-3.html">Copywriting</a></li>
-										<li><a href="services-1.html">Branding</a></li>
+										<li><a href="blank-page.html">活动举办</a></li>
+										<li><a href="blank-page.html">商家折扣</a></li>
+										<li><a href="blank-page.html"></a>会员价格</li>
+										<li><a href="blank-page.html">我们的品牌</a></li>
 									</ul>
 								</aside>
 							</div>
 							<div class="col-md-2 col-sm-6">
 								<aside class="widget widget_text">
-									<h5 class="widget-title">Introduction</h5>
+									<h5 class="widget-title">我们的客户</h5>
 									<ul>
-										<li><a href="about-1.html">Team Members</a></li>
-										<li><a href="about-1.html">Testimonials</a></li>
-										<li><a href="about-1.html">Our Clients</a></li>
+								
+										<li><a href="blank-page.html">客户体验</a></li>
+										<li><a href="blank-page.html">荣誉赞助商</a></li>
 									</ul>
 								</aside>
 							</div>
