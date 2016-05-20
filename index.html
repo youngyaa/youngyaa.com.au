@@ -146,7 +146,7 @@ session_start();
 									<div class="header-logo">
 										<a href="index.html?login=YES">
 											<img src="images/logo_youngyaa_light.png" class="logo-light" alt="">
-											<img src="images/logo_youngyaa_dark.png" class="logo-dark" alt="">
+											<img src="images/logo_dark.png" class="logo-dark" alt="">
 										</a>
 									</div>
 								</div>
@@ -161,9 +161,9 @@ session_start();
 											<!-- Top Cart -->
 											<div class="header-widget">
 										
-                                                <a href="#mfp-login-modal<?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo "1";} ?>" class="open-popup-link trigger-widget">
+                                                <a href="#mfp-login-modal<?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo "1";} ?>" class="open-popup-link trigger-widget" style="text-align:center">
                                                 
-													<i class="fa fa-user"><?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo " Hi,".$_SESSION['username'];} ?></i>
+                                                    <i class="fa fa-user" style="font-size:15px"><?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo $_SESSION['username'];} ?></i>
 											
 												</a>
 											
@@ -657,7 +657,7 @@ session_start();
                             ?>
 							<div class="carousel-item">
 								<article class="portfolio-item">
-									<a href="#">
+									<a href="#" onclick='return false'>
 										<div class="project-container">
 											<div class="image-container">
 												<img src="img\shops\<?php echo $Shopbrowse['shopimagename']; ?>" alt="" class="animated img-responsive" data-animation="<?php echo $Shopbrowse['animation']; ?>" data-animation-delay="100">
