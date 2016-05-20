@@ -1,0 +1,1092 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+include "include/connection.php";
+include "include/functions.php";
+include "include/classes.php";
+session_start();
+
+?>
+<!DOCTYPE html>
+
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US">  <!--<![endif]-->
+	   <head>
+
+		<title>云涯体育传媒 | 新视野新态度</title>
+		
+		<!-- META DATA -->
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		
+		<!-- CSS Global Compulsory -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+		
+		<!-- CSS Implementing Plugins -->
+		<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+		<link rel="stylesheet" href="css/ionicons.min.css" type="text/css">
+		<link rel="stylesheet" href="css/animate.min.css" type="text/css">
+		<link rel="stylesheet" href="css/flexslider.css" type="text/css">
+		<link rel="stylesheet" href="css/swiper.min.css" type="text/css">
+		<link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+		<link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+		<link rel="stylesheet" href="css/select2.min.css">
+		<link rel="stylesheet" href="css/vegas.min.css">
+
+		<link rel="stylesheet" href="css/custom.css">
+		
+		<!-- Revolution Style Sheets -->
+		<link rel="stylesheet" href="include/rs-plugin/css/settings.css" type="text/css">
+		<link rel="stylesheet" href="include/rs-plugin/css/layers.css" type="text/css">	
+		<link rel="stylesheet" href="include/rs-plugin/css/navigation.css" type="text/css">
+           
+        <script src="dist/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+		
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+		
+		<!--[if lt IE 11]>
+			<link rel="stylesheet" type="text/css" href="css/ie.css">
+		<![endif]-->
+		
+		<!-- FONTS -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic%7CRoboto:400,300,100,500,700,900' rel='stylesheet' type='text/css'>
+
+		<!-- JS -->
+		<script type="text/javascript" src="js/modernizr.js"></script>
+		
+		<!-- FAVICONS -->
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+	</head>
+
+	<body>
+        <?php if(isset($_SESSION['login_user']) && $_SESSION['login_user'] == 'NO' && isset($_GET['login']) && $_GET['login']=="NO"){ ?>
+        <script>
+             swal("您的登陆邮箱或密码不正确,或者账号尚未激活！", "请重新尝试", "error")
+        </script>
+        <?php unset($_SESSION['login_user']);} ?>   
+        
+        <?php
+         if(isset($_GET['email']) && !empty($_GET['email']) && isset($_GET['hash']) && !empty($_GET['hash'])){
+             
+             $activation = new user();
+             
+             $activation->useremail = $_GET['email'];
+             $activation->userhash = $_GET['hash'];
+             $activation->login = search_activation($activation->useremail,$activation->userhash);
+             $activation->match = mysqli_num_rows($activation->login);
+             
+             if($activation->match > 0){
+                 
+                 update_activation($activation->useremail,$activation->userhash);
+                 
+                 $activation->login = userinfor_query_email($activation->useremail);
+                 
+                 $activation->loginfetch = mysqli_fetch_assoc($activation->login);
+                 
+                 $_SESSION['username'] = $activation->loginfetch['username'];
+                 $_SESSION['login_user'] = "YES";
+                 $_GET['login'] = "YES";
+        
+                 $_SESSION['userid'] = $activation->loginfetch['UID'];
+                 $_SESSION['planlevel'] = $activation->loginfetch['planlevel'];
+                 $_SESSION['useremail'] = $activation->loginfetch['useremail'];
+                 $_SESSION['userpassword'] = $activation->loginfetch['userpassword'];
+                 $_SESSION['rewards'] = $activation->loginfetch['rewards']; ?>
+                <script>
+                swal("您的账号已成功激活!", "请点击右上角会员中心来查看或修改您的个人信息，谢谢！", "success")
+                </script>
+                 
+         <?php    }
+             else{ ?>
+                    <script>
+        // No match -> invalid url or account has already been activated.
+        //echo '<div class="statusmsg">The url is either invalid or you already have activated your account.</div>';
+                    swal("Oops...", "该账号已经激活过", "error")
+                    </script>
+        <?php }
+         }
+        ?>
+	
+		<div id="preloader">
+			<div id="loading-animation"></div>
+		</div>
+		
+		<div class="main-container">
+		
+			<div id="top"></div>
+		
+			<header class="main-header style-1 transparent">
+				<div class="header-wrapper">
+				
+					<nav class="header-nav light">
+						<div class="nav-wrapper">		
+							<div class="container-fluid">
+							
+								<div class="nav-block left block-widgets">
+									<button type="button" class="nav-toggle">
+										<i class="ion-navicon"></i>
+									</button>
+									<div class="header-logo">
+										<a href="index.html">
+											<img src="images/logo_youngyaa_light.png" class="logo-light" alt="">
+											<img src="images/logo_youngyaa_dark.png" class="logo-dark" alt="">
+										</a>
+									</div>
+								</div>
+								
+								<div class="nav-block right block-widgets">
+									<div class="header-functions">
+										<div class="header-widgets">
+										
+											<!-- Top Search -->
+									
+                                            
+											<!-- Top Cart -->
+											<div class="header-widget">
+										
+                                                <a href="#mfp-login-modal<?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo "1";} ?>" class="open-popup-link trigger-widget">
+                                                
+													<i class="fa fa-user"><?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo " Hi,".$_SESSION['username'];} ?></i>
+											
+												</a>
+											
+											</div>
+                            <!-- below is the modal that only visible to login members -->
+                         <div id="mfp-login-modal1" class="mfp-modal mfp-modal-small mfp-hide">
+							<div class="mfp-modal-content">
+								<h3 class="heading-uppercase text-center margintop-40 marginbottom-40">亲爱的云涯会员，您好</h3>
+							
+                                <button class="button button-noradius button-fullwidth button-border border-thin nomargin" ><a href = "member-profile.html?login=YES">会员中心</a></button>
+                                <hr>
+                                   <button class="button button-noradius button-fullwidth button-border border-thin nomargin" ><a href = "logout.php">登出账号</a></button>
+							</div>
+						</div>                
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                        <!-- below is the modal for login and register -->        
+                        <div id="mfp-login-modal" class="mfp-modal mfp-modal-small mfp-hide">
+							<div class="mfp-modal-content">
+								<h3 class="heading-uppercase text-center margintop-40 marginbottom-40">Login Here</h3>
+								<form class="nobottommargin" id = "loginform" name = "loginform" method = "POST" action="ajax_process.php">
+									<input type="email" id="loginEmail" name = "loginEmail" class="form-control input-border-bottom" placeholder="Email address" required>
+									<input type="password" id="loginPassword"  name = "loginPassword" class="form-control input-border-bottom" placeholder="Password" required>
+                                     
+                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" id="loginbutton" type="submit">登入</button>
+                                    
+                             
+									<div class="row">
+										<div class="col-md-6">
+											<div id="remember" class="checkbox nobottommargin">
+												<label>
+													<input type="checkbox" value="remember-me"> Remember me
+												</label>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<a href="#" class="display-block text-right margintop-10">Forgot password?</a>
+										</div>
+									</div>
+                                    
+								</form><!-- /form -->
+                                <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href = "registration.html">我要注册</a></button>
+							</div>
+						</div>
+											
+										</div>						
+									</div>
+								</div>
+
+								<div class="nav-block right block-menu">
+									<ul class="menu">
+
+										<li>
+											<a href="index.html">首页</a>
+									
+										</li>
+
+										<li>
+											<a href="blank-page.html">关于我们</a>
+										
+										</li>
+                                        <li>
+											<a href="blank-page.html">会员计划</a>
+										
+										</li>
+										
+										<li>
+											<a href="blank-page.html">我们的活动</a>
+										
+										</li>
+										
+										<li>
+											<a href="blank-page.html">合作折扣伙伴</a>
+											
+										</li>
+										
+										<li>
+											<a href="blank-page.html">新闻博客</a>
+											
+										</li>
+										
+										<li>
+											<a href="blank-page.html">联系我们</a>
+                                        </li>
+											
+								</div>
+
+							</div>
+						</div>
+					</nav>
+					
+				</div>
+			</header>
+			<!-- .main-header end -->
+			
+			<!-- Page Header -->
+			<section class="intro-section nopadding">
+				
+				<!-- REVOLUTION SLIDER -->
+				<div class="rev_slider_wrapper fullscreen-container" data-alias="notgeneric1" style="background-color:transparent;padding:0px;">			
+					<!-- START REVOLUTION SLIDER 5.0.7 fullscreen mode -->
+					<div class="rev_slider fullscreenbanner" style="display:none;" data-version="5.2.4">
+						<ul>
+
+							<!-- SLIDE  -->
+							<li data-index="rs-1" data-transition="zoomout" data-slotamount="default"  data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="2000" data-thumb="" data-rotate="0" data-fstransition="fade" data-fsmasterspeed="1500" data-fsslotamount="7" data-saveperformance="off" data-title="Intro" data-description="">
+								<!-- MAIN IMAGE -->
+								<img src="demo/images/image-member.jpg" alt="" class="rev-slidebg" data-bgparallax="10" data-bgposition="center center" data-duration="20000" data-ease="Linear.easeNone" data-kenburns="on" data-no-retina="" data-offsetend="0 0" data-offsetstart="0 0" data-rotateend="0" data-rotatestart="0" data-scaleend="100" data-scalestart="140">
+								<!-- LAYERS -->
+								
+								<!-- LAYER NR. 1 -->
+								<div class="tp-caption tp-shape tp-shapewrapper rs-parallaxlevel-0 background-dark-5" 
+									id="slide-1-layer-1" 
+									data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']" 
+									data-width="full"
+									data-height="full"
+									data-whitespace="nowrap"
+									data-transform_idle="o:0.4;"
+									data-transform_in="opacity:0;s:2000;e:Power3.easeInOut;" 
+									data-transform_out="opacity:0;s:0;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-start="0" 
+									data-basealign="slide" 
+									data-responsive_offset="on" 
+									data-responsive="off"	
+									style="z-index: 5;">
+								</div>
+
+								<!-- LAYER NR. 2 -->
+								<div class="tp-caption NotGeneric-SubTitle rs-parallaxlevel-0 text-center" 
+									id="slide-8-layer-2" 
+									data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['-114','-57','-57','-120']" 
+									data-fontsize="['16','16','16','18']"
+									data-lineheight="['24','24','24','24']"
+									data-width="['none','none','720','400']"
+									data-height="none"
+									data-whitespace="['nowrap','nowrap','nowrap','normal']"
+									data-transform_idle="o:1;"
+									data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+									data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+									data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+									data-start="1300" 
+									data-splitin="none" 
+									data-splitout="none" 
+									data-responsive_offset="on" 
+									style="z-index: 6; white-space: nowrap;">云涯折扣在线平台
+								</div>
+								
+								<!-- LAYER NR. 3 -->
+								<div class="tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0 font-light" 
+									id="slide-1-layer-3" 
+									data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['-54','0','0','-42']" 
+									data-fontsize="['72','56','46','36']"
+									data-lineheight="['80','64','54','44']"
+									data-width="['none','none','720','400']"
+									data-height="none"
+									data-whitespace="['nowrap','nowrap','nowrap','normal']"
+									data-transform_idle="o:1;"
+									data-transform_in="x:[105%];z:0;rX:45deg;rY:0deg;rZ:90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" 
+									data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+									data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+									data-start="1000" 
+									data-splitin="chars" 
+									data-splitout="none" 
+									data-responsive_offset="on" 
+									data-elementdelay="0.05" 
+									style="z-index: 5; white-space: nowrap;">运动是一种态度
+								</div>
+			
+								<!-- LAYER NR. 4 -->
+								<div class="tp-caption tp-resizeme rs-parallaxlevel-0 revo-slider-desc-text text-white font-light" 
+									id="slide-1-layer-4" 
+									data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['26','77','77','77']" 
+									data-fontsize="['21','21','18','18']"
+									data-lineheight="['30','30','28','28']"
+									data-width="['none','none','720','400']"
+									data-height="none"
+									data-whitespace="normal"
+									data-transform_idle="o:1;"
+									data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+									data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+									data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+									data-start="1500" 
+									data-splitin="none" 
+									data-splitout="none" 
+									data-responsive_offset="on" 
+									style="z-index: 6; white-space: normal; width: 750px; max-width: 750px;">格调生活，品味运动乐趣，专享品牌特惠
+								</div>
+                                <div class="tp-caption tp-resizeme rs-parallaxlevel-0 revo-slider-desc-text text-white font-light" 
+									id="slide-1-layer-8" 
+									data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['26','77','77','77']" 
+									data-fontsize="['21','21','18','18']"
+									data-lineheight="['30','30','28','28']"
+									data-width="['none','none','720','400']"
+									data-height="none"
+									data-whitespace="normal"
+									data-transform_idle="o:1;"
+									data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+									data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+									data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+									data-start="1500" 
+									data-splitin="none" 
+									data-splitout="none" 
+									data-responsive_offset="on" 
+									style="z-index: 7; white-space: normal; width: 750px; max-width: 750px;">格调生活，品味运动乐趣，专享品牌特惠
+								</div>
+
+								<!-- LAYER NR. 5 -->
+								<a class="tp-caption button button-border button-rounded button-white rs-parallaxlevel-0"
+									href="registration.html" target="_blank"
+									id="slide-1-layer-5" 
+									data-x="['center','center','center','center']" data-hoffset="['-100','-115','-130','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['100','148','148','168']" 
+									data-width="none"
+									data-height="none"
+									data-whitespace="nowrap"
+									data-transform_idle="o:1;"
+									data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Power1.easeInOut;"
+									data-style_hover="c:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);cursor:pointer;"
+									data-transform_in="y:50px;opacity:0;s:1500;e:Power4.easeInOut;" 
+									data-transform_out="y:[175%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-mask_out="x:inherit;y:inherit;" 
+									data-start="2000" 
+									data-splitin="none" 
+									data-splitout="none" 
+									data-responsive_offset="on" 
+									data-responsive="off"
+									style="z-index: 8; white-space: nowrap;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;">点击注册会员
+                                    
+								</a>
+								
+								<!-- LAYER NR. 6 -->
+								<div class="tp-caption button button-link button-white rs-parallaxlevel-0" 
+									id="slide-1-layer-6" 
+									data-x="['center','center','center','center']" data-hoffset="['100','115','130','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['100','148','148','218']" 
+									data-width="none"
+									data-height="none"
+									data-whitespace="nowrap"
+									data-transform_idle="o:1;"
+									data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Power1.easeInOut;"
+									data-style_hover="c:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);cursor:pointer;"
+									data-transform_in="y:50px;opacity:0;s:1500;e:Power4.easeInOut;" 
+									data-transform_out="y:[175%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-mask_out="x:inherit;y:inherit;" 
+									data-start="2300" 
+									data-splitin="none" 
+									data-splitout="none" 
+									data-actions='[{"event":"click","action":"jumptoslide","slide":"next","delay":""}]'
+									data-responsive_offset="on" 
+									data-responsive="off"
+									style="z-index: 8; white-space: nowrap;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;">了解更多 <i class="fa fa-angle-down"></i>
+								</div>
+
+							</li>
+
+						<!-- SLIDE  -->
+							<li data-index="rs-2" data-transition="zoomin" data-slotamount="7"  data-easein="Power4.easeInOut" data-easeout="Power4.easeInOut" data-masterspeed="2000"  data-thumb="file:///M:/Michał/Bluminethemes/Themeforest/Purchased/codecanyon-2580848-slider-revolution-responsive-jquery-plugin-v5/assets/images/notgeneric_bg3-100x50.jpg"  data-rotate="0"  data-saveperformance="off"  data-title="Hiking" data-description="">
+								<!-- MAIN IMAGE -->
+								<img src="demo/images/image-nb.jpg" alt="" class="rev-slidebg" data-bgparallax="10" data-bgposition="center center" data-duration="30000" data-ease="Linear.easeNone" data-kenburns="on" data-no-retina="" data-offsetend="0 0" data-offsetstart="0 0" data-rotateend="0" data-rotatestart="0" data-scaleend="100" data-scalestart="110">
+								<!-- LAYERS -->
+
+								<!-- LAYER NR. 1 -->
+								<div class="tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0 font-light" 
+									id="slide-2-layer-1" 
+									data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['-45','0','0','0']" 
+									data-fontsize="['70','70','70','45']"
+									data-lineheight="['70','70','70','50']"
+									data-width="none"
+									data-height="none"
+									data-whitespace="nowrap"
+									data-transform_idle="o:1;"
+									data-transform_in="x:[-105%];z:0;rX:0deg;rY:0deg;rZ:-90deg;sX:1;sY:1;skX:0;skY:0;s:2000;e:Power4.easeInOut;" 
+									data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" 
+									data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+									data-start="1000" 
+									data-splitin="chars" 
+									data-splitout="none" 
+									data-responsive_offset="on" 
+									data-elementdelay="0.1" 
+									style="z-index: 5; white-space: nowrap;">With New Balance
+								</div>
+
+								<!-- LAYER NR. 2 -->
+								<div class="tp-caption NotGeneric-SubTitle   tp-resizeme rs-parallaxlevel-0 text-uppercase" 
+									id="slide-2-layer-2" 
+									data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['5','52','52','51']" 
+									data-fontsize="['16','16','16','18']"
+									data-lineheight="['24','24','24','24']"
+									data-width="none"
+									data-height="none"
+									data-whitespace="nowrap"
+									data-transform_idle="o:1;"
+									data-transform_in="y:[100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;opacity:0;s:2000;e:Power4.easeInOut;" 
+									data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;" 
+									data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" 
+									data-start="1500" 
+									data-splitin="none" 
+									data-splitout="none" 
+									data-responsive_offset="on" 
+									style="z-index: 6; white-space: nowrap;">We are sharing sports of love at 15% off 
+								</div>
+
+								<!-- LAYER NR. 3 -->
+								<a class="tp-caption button button-border button-rounded button-white rs-parallaxlevel-0" 
+									href="#" target="_blank" 
+									id="slide-2-layer-3" 
+									data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']" 
+									data-y="['middle','middle','middle','middle']" data-voffset="['55','125','124','104']" 
+									data-width="none"
+									data-height="none"
+									data-whitespace="nowrap"
+									data-transform_idle="o:1;"
+									data-transform_hover="o:1;rX:0;rY:0;rZ:0;z:0;s:300;e:Power1.easeInOut;"
+									data-style_hover="c:rgba(255, 255, 255, 1.00);bc:rgba(255, 255, 255, 1.00);cursor:pointer;"
+									data-transform_in="y:50px;opacity:0;s:1500;e:Power4.easeInOut;" 
+									data-transform_out="y:[175%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;" 
+									data-mask_out="x:inherit;y:inherit;" 
+									data-start="2000" 
+									data-splitin="none" 
+									data-splitout="none" 
+									data-responsive_offset="on" 
+									data-responsive="off"
+									style="z-index: 9; white-space: nowrap;outline:none;box-shadow:none;box-sizing:border-box;-moz-box-sizing:border-box;-webkit-box-sizing:border-box;">我要参与 
+								</a>
+								
+							</li>
+								
+	
+							
+						</ul>
+					</div>
+				</div><!-- END REVOLUTION SLIDER -->
+
+			</section>
+            
+   			<section class="section paddingtop-65 paddingbottom-85 background-grey">
+				<div class="section-container">
+					<div class="container">
+                        	<div class="paddingbottom-25 text-center">
+							<h3 class="heading-uppercase">活动</h3>
+							<div class="divider divider-center divider-dark"></div>
+							<p>我们擅长举办体育及娱乐类活动， 承办各种节日庆祝项目</p>
+                                <a href="registration.html" class="button button-red"><i class="fa fa-gift"></i>加入我们</a>
+						</div>
+						<!-- Blog Posts -->
+						<div class="row isotope-container blog-container">
+								
+						
+					
+						<article class="col-md-6 post isotope-item">
+								<div class="article-container">
+									<div class="entry-media">
+										<div class="bt-slider flexslider direction-white controls-white controls-inside" data-effect="fade" data-pagination="false">
+											<ul class="slides">
+												<li>
+													<img src="images\events\event1\image-football.jpg" alt=""/>
+												</li>
+												<li>
+													<img src="images\events\event1\image-football1.jpg" alt="" />
+												</li>
+												<li>
+													<img src="images\events\event1\image-football2.jpg" alt="" />
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="article-content">
+										<header class="entry-header">
+											<h2 class="entry-title"><a href="#" rel="bookmark">王牌对王牌5V5足球对抗赛</a></h2>
+										</header><!-- .entry-header -->
+										<div class="entry-summary">
+											<p>国足，久违了！撼动亚洲，为中国队加油喝彩，澳洲华人热血助威，5V5足球双城对抗赛，让情怀与梦想同行！青光流转一脚定乾坤，弦月钩星王者荣耀回归，巅峰对抗，决战绿荫！</p>
+										</div><!-- .entry-summary -->
+										<!-- <a href="#" class="read-more">Read More</a> -->
+									</div>
+									<footer class="entry-footer">
+										<div class="entry-container">
+											<span class="entry-date"><i class="fa fa-calendar-o"></i> <a href="#" rel="bookmark"><time class="entry-date" datetime="2015-05-07T15:05:34+00:00">待定</time></a></span><span class="read-time"><i class="fa fa-clock-o"></i> 1 minute read</span>
+										</div>
+									</footer><!-- .entry-footer -->
+								</div><!-- .article-container -->
+							</article>
+                            
+                            	<article class="col-md-6 post isotope-item">
+								<div class="article-container">
+									<div class="entry-media">
+										<div class="bt-slider flexslider direction-white controls-white controls-inside" data-effect="fade" data-pagination="false">
+											<ul class="slides">
+												<li>
+													<img src="images\events\event2\image-eastershow.jpg" alt="" />
+												</li>
+												<li>
+													<img src="images\events\event2\image-eastershow1.jpg" alt="" />
+												</li>
+												<li>
+													<img src="images\events\event2\image-eastershow2.jpg" alt="" />
+												</li>
+											</ul>
+										</div>
+									</div>
+									<div class="article-content">
+										<header class="entry-header">
+											<h2 class="entry-title"><a href="#" rel="bookmark">2016 Easter Show 中国传统文化展</a></h2>
+										</header><!-- .entry-header -->
+										<div class="entry-summary">
+											<p>云涯于2016皇家复活节中举办中国传统文化展，包括：糖画、冰糖葫芦，剪纸、水果雕刻、传统手工编织、泥人张彩塑等。</p>
+										</div><!-- .entry-summary -->
+										<!-- <a href="#" class="read-more">Read More</a> -->
+									</div>
+									<footer class="entry-footer">
+										<div class="entry-container">
+											<span class="entry-date"><i class="fa fa-calendar-o"></i> <a href="#" rel="bookmark"><time class="entry-date" datetime="2015-05-07T15:05:34+00:00">2016年3月17日——2016年3月30日</time></a></span><span class="read-time"><i class="fa fa-clock-o"></i> 1 minute read</span>
+										</div>
+									</footer><!-- .entry-footer -->
+								</div><!-- .article-container -->
+							</article>
+					
+						
+
+
+
+							
+
+								
+						</div>
+						<nav>
+							
+						</nav>
+					</div>
+				</div>
+			</section>
+            
+            
+            
+            <section class="section text-center" >
+				<div class="section-container">
+					<div class="container">
+						<a href="https://vimeo.com/87701971" class="mfp-iframe play-button inline marginbottom-30"><i class="ion-ios-play-outline"></i></a>
+						<h3 class="text-white">Discover</h3>
+						<h4 class="text-white">云涯是专业的体育文化传媒公司，业务包括体育营销、赛事运营、品牌推广、赞助商服务，以及在线折扣及周边娱乐等。</h4>
+					</div>
+				</div>
+				<!-- Overlay -->
+				<div class="overlay">
+					<div class="overlay-color background-dark-7 opacity-30"></div>
+					<div class="overlay-image parallax-background" style="background-image: url('demo/images/homeshort1.jpg');" data-stellar-background-ratio="0.4"></div>
+				</div>
+			</section>
+
+			
+			<section class="section nobottompadding background-grey" style="padding-top:70px">
+				<div class="section-container">
+
+                    		<div class="paddingbottom-25 text-center">
+							<h3 class="heading-uppercase">合作品牌折扣</h3>
+							<div class="divider divider-center divider-dark"></div>
+							<p>在线折扣平台为会员打造专属的特惠服务，众多一线品牌加盟，乐享生活，尊享折扣！</p>
+                                <a href="registration.html" class="button button-blue"><i class="fa fa-gift"></i>注册会员，立享折扣</a>
+						</div>
+			
+  	<div class="container-fluid paddingbottom-60 owl-section">
+						<div class="owl-carousel-full owl-carousel nav-inside owl-controls-light" data-pagination="true">
+						
+                            <?php
+                            
+                            //$homeshop = new shop();
+                            
+                            $shopbrowse = display_homepage_shop();
+                            
+                            while($Shopbrowse =  mysqli_fetch_assoc($shopbrowse)){
+                            
+                            ?>
+							<div class="carousel-item">
+								<article class="portfolio-item">
+									<a href="#">
+										<div class="project-container">
+											<div class="image-container">
+												<img src="img\shops\<?php echo $Shopbrowse['shopimagename']; ?>" alt="" class="animated img-responsive" data-animation="<?php echo $Shopbrowse['animation']; ?>" data-animation-delay="100">
+											</div>
+											<div class="project-details">
+												<div class="details-container">
+													<div class="details-text">
+														<h5 class="details-title"><?php echo $Shopbrowse['shortdescrption']; ?></h5>
+														<p class="details-category"><?php echo $Shopbrowse['address']; ?></p>
+													</div>
+												</div>
+												<div class="overlay background-dark-5 opacity-70"></div>
+											</div>
+                                            
+										</div>
+                                        <div class="product-desc">
+	                                       <div class="product-title"><h3><a href="#"><?php echo $Shopbrowse['shopname']; ?></a></h3></div>
+	                                       <div class="product-price"><ins><?php echo $Shopbrowse['discount']; ?></ins></div>
+                                        </div>
+									</a>
+                                    
+								</article>
+
+							</div>
+                            
+                    <?php } ?>
+                            
+             
+                          
+												
+						</div>
+					</div>
+                    
+				</div>
+                
+			</section>
+            <section class="section text-center" >
+				<div class="section-container">
+					<div class="container">
+						<a href="https://vimeo.com/87701971" class="mfp-iframe play-button inline marginbottom-30"><i class="ion-ios-play-outline"></i></a>
+						<h3 class="text-white">Discover</h3>
+						<h4 class="text-white">云涯坚持自我发展的同时也积极拓展商业合作，专注体育品牌构建、创新体育营销，坚持品质服务，深入长远的发展，确保合作伙伴的利益最大化。</h4>
+					</div>
+				</div>
+				<!-- Overlay -->
+				<div class="overlay">
+					<div class="overlay-color background-dark-7 opacity-30"></div>
+					<div class="overlay-image parallax-background" style="background-image: url('demo/images/homeshort2.jpg');" data-stellar-background-ratio="0.4"></div>
+				</div>
+			</section>
+		
+			
+			
+			
+
+              
+			 <section class="section background-grey text-center" style="padding-top:70px;">
+                 				<div class="section-container">
+
+                    		<div class="paddingbottom-50 text-center">
+							<h3 class="heading-uppercase">我们的合作伙伴</h3>
+							<div class="divider divider-center divider-dark"></div>
+							<p>公司拥有丰富的品牌合作资源。</p>
+                            <a href="#" class="button button-blue"><i class="fa fa-gift"></i>Contact us</a>
+						</div>
+				<div class="section-container">
+					<div class="container-fluid">
+						<div class="flex-carousel flexslider" data-max-items="8">
+							<ul class="slides">
+                                <li>
+								  <div class="profile-card">
+									<div class="box-container">
+										<div class="user-image">
+											<img src="images\logo\NB_Stckd_logo_PMS 186.jpg" alt="">
+										</div>
+										<div class="profile-content">
+                                            
+                                            <a href="https://www.google.com.au/"><h5 class="name heading-uppercase"> New Balance</h5></a>
+                                        
+											<p class="role">体育运动领导品牌</p>
+											<nav class="socials-icons">
+												<ul>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+                                </li>
+                                                                <li>
+								  <div class="profile-card">
+									<div class="box-container">
+										<div class="user-image">
+											<img src="images\logo\sichuanhangkong.jpg" alt="">
+										</div>
+										<div class="profile-content">
+                                            
+											<h5 class="name heading-uppercase"> 四川航空</h5>
+                                        
+											<p class="role">中国知名航空企业</p>
+											<nav class="socials-icons">
+												<ul>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+                            </li>
+                                                                <li>
+								  <div class="profile-card">
+									<div class="box-container">
+										<div class="user-image">
+											<img src="images\logo\wansheng.png" alt="">
+										</div>
+										<div class="profile-content">
+                                            
+											<h5 class="name heading-uppercase"> 万盛伟业</h5>
+                                        
+											<p class="role">澳洲专业地产咨询公司</p>
+											<nav class="socials-icons">
+												<ul>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+                                </li>
+                                                                <li>
+								  <div class="profile-card">
+									<div class="box-container">
+										<div class="user-image">
+											<img src="images\logo\UGG.jpg" alt="">
+										</div>
+										<div class="profile-content">
+                                            
+											<h5 class="name heading-uppercase">Luxury Ugg</h5>
+                                        
+											<p class="role">澳洲雪地靴知名品牌</p>
+											<nav class="socials-icons">
+												<ul>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+                                </li>
+                                                                <li>
+								  <div class="profile-card">
+									<div class="box-container">
+										<div class="user-image">
+											<img src="images\logo\dragonboat.png" alt="">
+										</div>
+										<div class="profile-content">
+                                            
+											<h5 class="name heading-uppercase">金龙阁</h5>
+                                        
+											<p class="role">现代亚洲餐厅</p>
+											<nav class="socials-icons">
+												<ul>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+                                </li>
+                                <li>
+								  <div class="profile-card">
+									<div class="box-container">
+										<div class="user-image">
+											<img src="images\logo\whiteglo.png" alt="">
+										</div>
+										<div class="profile-content">
+                                            
+											<h5 class="name heading-uppercase">White Glo</h5>
+                                        
+											<p class="role">专业美白牙膏</p>
+											<nav class="socials-icons">
+												<ul>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+                                </li>
+                                   <li>
+								  <div class="profile-card">
+									<div class="box-container">
+										<div class="user-image">
+											<img src="images\logo\AUIJewellers.jpg" alt="">
+										</div>
+										<div class="profile-content">
+                                            
+											<h5 class="name heading-uppercase">澳亿珠宝</h5>
+                                        
+											<p class="role">知名珠宝品牌</p>
+											<nav class="socials-icons">
+												<ul>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+													<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+                                </li>
+                            
+                              
+                            </ul>
+                        </div>
+                    </div>
+                 </div>
+            </section>
+						
+		
+			
+			<!-- Footer -->
+			<footer class="site-footer section nobottompadding background-grey">
+				<div class="section-container">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-4 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">About Us</h5>
+									<p>We are creative developers. Made by Bluminethemes is sign under beautiful site templates created by us for people like us.</p>
+								</aside>
+							</div>
+							<div class="col-md-2 col-md-offset-2 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">Company</h5>
+									<ul>
+										<li><a href="about-1.html">About Company</a></li>
+										<li><a href="about-2.html">What We Do</a></li>
+										<li><a href="about-3.html">What We Think</a></li>
+									</ul>
+								</aside>
+							</div>
+							<div class="col-md-2 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">Services</h5>
+									<ul>
+										<li><a href="services-1.html">Graphic Design</a></li>
+										<li><a href="services-2.html">Web Development</a></li>
+										<li><a href="services-3.html">Copywriting</a></li>
+										<li><a href="services-1.html">Branding</a></li>
+									</ul>
+								</aside>
+							</div>
+							<div class="col-md-2 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">Introduction</h5>
+									<ul>
+										<li><a href="about-1.html">Team Members</a></li>
+										<li><a href="about-1.html">Testimonials</a></li>
+										<li><a href="about-1.html">Our Clients</a></li>
+									</ul>
+								</aside>
+							</div>
+						</div>
+					</div>
+					<!-- Copyright -->
+					<div class="copyright background-white">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-6 col-sm-6 text-left">
+								© 2016 云涯体育传媒有限公司 - All Rights Reserved
+								</div>
+								<div class="col-md-6 col-sm-6">
+									<nav class="socials-icons pull-right">
+										<ul>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-googleplus"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div><!-- .copyright end -->
+				</div>
+			</footer><!-- .site-footer end -->
+			
+			<button class="backToTop"><i class="fa fa-angle-up"></i></button>
+			
+		</div>
+
+		<!-- JS -->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/plugins.js"></script>
+
+		<script type="text/javascript" src="js/main.js"></script>
+		
+		<!-- REVOLUTION JS FILES -->
+		<script type="text/javascript" src="include/rs-plugin/js/jquery.themepunch.tools.min.js"></script>
+		<script type="text/javascript" src="include/rs-plugin/js/jquery.themepunch.revolution.min.js"></script>
+		
+		<!-- SLIDER REVOLUTION 5.0 EXTENSIONS  
+			(Load Extensions only on Local File Systems !  
+			The following part can be removed on Server for On Demand Loading) -->	
+		<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.video.min.js"></script>
+		<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.slideanims.min.js"></script>
+		<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.actions.min.js"></script>
+		<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.layeranimation.min.js"></script>
+		<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.kenburn.min.js"></script>
+		<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.navigation.min.js"></script>
+		<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.migration.min.js"></script>
+		<script type="text/javascript" src="include/rs-plugin/js/extensions/revolution.extension.parallax.min.js"></script>
+		
+		<script type="text/javascript">
+			var tpj=jQuery;
+			tpj.noConflict();
+			
+			tpj(document).ready(function() {
+				if(tpj(".rev_slider").revolution == undefined){
+					revslider_showDoubleJqueryError(".rev_slider");
+				}else{
+					var revApi = tpj(".rev_slider").show().revolution({
+						sliderType:"standard",
+						jsFileLocation:"../../revolution/js/",
+						sliderLayout:"fullscreen",
+						dottedOverlay:"none",
+						delay:9000,
+						navigation: {
+							keyboardNavigation:"on",
+							keyboard_direction: "horizontal",
+							mouseScrollNavigation:"off",
+							onHoverStop:"off",
+							arrows: {
+								style: "uranus",
+								enable: true,
+								hide_onmobile: true,
+								hide_under: 600,
+								hide_onleave: true,
+								tmp: '',
+								left: {
+									h_align: "left",
+									v_align: "center",
+									h_offset: 10,
+									v_offset: 0
+								},
+								right: {
+									h_align: "right",
+									v_align: "center",
+									h_offset: 10,
+									v_offset: 0
+								}
+							},
+							bullets: {
+								enable: true,
+								hide_onmobile: false,
+								style: "hermes",
+								hide_onleave: true,
+								direction: "horizontal",
+								h_align: "center",
+								v_align: "bottom",
+								h_offset: 0,
+								v_offset: 30,
+								space: 5,
+								tmp: ''
+							},
+							touch:{
+								touchenabled:"on",
+								swipe_threshold: 75,
+								swipe_min_touches: 1,
+								swipe_direction: "horizontal",
+								drag_block_vertical: false
+							}
+						},
+						responsiveLevels:[1200,991,768,480],
+						visibilityLevels: [1200, 991, 768, 480],
+						gridwidth:[1200,991,768,480],
+						gridheight:[868,768,768,720],
+						lazyType:"none",
+						parallax: {
+							type:"mouse",
+							origo:"slidercenter",
+							speed:2000,
+							levels:[2,3,4,5,6,7,12,16,10,50],
+							disable_onmobile:"on"
+						},
+						shadow:0,
+						spinner:"off",
+						stopLoop:"on",
+						stopAfterLoops:0,
+						stopAtSlide:1,
+						shuffle:"off",
+						autoHeight:"off",
+						fullScreenAlignForce:"off",
+						fullScreenOffsetContainer: "",
+						fullScreenOffset: "0px",
+						hideThumbsOnMobile:"off",
+						hideSliderAtLimit:0,
+						hideCaptionAtLimit:0,
+						hideAllCaptionAtLilmit:0,
+						debugMode:false,
+						fallbacks: {
+							simplifyAll:"off",
+							nextSlideOnWindowFocus:"off",
+							disableFocusListener:false
+						}
+					});
+				}
+			});
+		</script>
+        <script type = "text/javascript" src="Ajax_submit.js"></script>
+
+	</body>
+</html>

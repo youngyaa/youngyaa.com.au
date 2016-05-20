@@ -1,0 +1,180 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+include "include/connection.php";
+include "include/functions.php";
+include "include/classes.php";
+session_start();
+
+?>
+
+
+<!DOCTYPE html>
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US">  <!--<![endif]-->
+	<head>
+	
+		<title>云涯体育传媒 | 新视野新态度</title>
+		
+		<!-- META DATA -->
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		
+		<!-- CSS Global Compulsory -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+		
+		<!-- CSS Implementing Plugins -->
+		<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+		<link rel="stylesheet" href="css/ionicons.min.css" type="text/css">
+		<link rel="stylesheet" href="css/animate.min.css" type="text/css">
+		<link rel="stylesheet" href="css/flexslider.css" type="text/css">
+		<link rel="stylesheet" href="css/swiper.min.css" type="text/css">
+		<link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+		<link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+		<link rel="stylesheet" href="css/select2.min.css">
+		<link rel="stylesheet" href="css/vegas.min.css">
+
+		<link rel="stylesheet" href="css/custom.css">
+				
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+		
+		<!--[if lt IE 11]>
+			<link rel="stylesheet" type="text/css" href="css/ie.css">
+		<![endif]-->
+		
+		<!-- FONTS -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic%7CRoboto:400,300,100,500,700,900' rel='stylesheet' type='text/css'>
+		
+		<!-- JS -->
+		<script type="text/javascript" src="js/modernizr.js"></script>
+		
+		<!-- FAVICONS -->
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	
+	</head>
+	<body>
+	
+		<div id="preloader">
+			<div id="loading-animation"></div>
+		</div>
+		
+		<div class="main-container">
+
+			<!-- Page Title -->
+			<section class="page-title background-grey paddingtop-130">			
+				<div class="section-container">
+					<div class="container">
+						<div class="col-md-10 col-md-offset-1 text-center">
+							<h3 class="heading-uppercase no-top-margin">我们网站正在建设中，敬请期待</h3>
+							<p class="nobottommargin">云涯体育传媒</p>
+						</div>
+					</div>
+				</div>
+			</section><!-- .page-title end -->
+		
+			<section class="section text-center">
+				<div class="section-container">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<p>Nulla et leo lacinia nulla ornare scelerisque. Nulla facilisi. Nullam euismod at velit id porttitor. Morbi pretium consequat lacus eu rhoncus. Aenean pellentesque erat ac erat tincidunt, quis varius lectus molestie. Nullam eget neque lacus. Suspendisse vitae condimentum tortor, non pretium leo. Nunc porta est dolor, vitae mattis purus pharetra quis. Curabitur in hendrerit enim. Integer urna orci, elementum quis finibus et, convallis vitae arcu. Quisque gravida in sem nec egestas. Vestibulum sed fringilla erat. Quisque dapibus enim vitae eleifend tincidunt. Ut ac mollis risus, at varius tortor. Nullam gravida sodales eros, et pharetra libero varius eu. Ut felis ex, suscipit ut nisi in, cursus sagittis risus.</p>
+								<a href="index.html?login=YES" class="button button-border button-rounded nobottommargin">返回首页</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- Footer -->
+			<footer class="site-footer section nobottompadding background-grey">
+				<div class="section-container">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-4 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">About Us</h5>
+									<p>We are creative developers. Made by Bluminethemes is sign under beautiful site templates created by us for people like us.</p>
+								</aside>
+							</div>
+							<div class="col-md-2 col-md-offset-2 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">Company</h5>
+									<ul>
+										<li><a href="about-1.html">About Company</a></li>
+										<li><a href="about-2.html">What We Do</a></li>
+										<li><a href="about-3.html">What We Think</a></li>
+									</ul>
+								</aside>
+							</div>
+							<div class="col-md-2 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">Services</h5>
+									<ul>
+										<li><a href="services-1.html">Graphic Design</a></li>
+										<li><a href="services-2.html">Web Development</a></li>
+										<li><a href="services-3.html">Copywriting</a></li>
+										<li><a href="services-1.html">Branding</a></li>
+									</ul>
+								</aside>
+							</div>
+							<div class="col-md-2 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">Introduction</h5>
+									<ul>
+										<li><a href="about-1.html">Team Members</a></li>
+										<li><a href="about-1.html">Testimonials</a></li>
+										<li><a href="about-1.html">Our Clients</a></li>
+									</ul>
+								</aside>
+							</div>
+						</div>
+					</div>
+					<!-- Copyright -->
+					<div class="copyright background-white">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-6 col-sm-6 text-left">
+								© 2016 云涯体育传媒有限公司 - All Rights Reserved
+								</div>
+								<div class="col-md-6 col-sm-6">
+									<nav class="socials-icons pull-right">
+										<ul>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-googleplus"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div><!-- .copyright end -->
+				</div>
+			</footer><!-- .site-footer end -->
+			
+			<button class="backToTop"><i class="fa fa-angle-up"></i></button>
+			
+		</div>
+
+		<!-- JS -->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/plugins.js"></script>
+
+		<script type="text/javascript" src="js/main.js"></script>
+
+	</body>
+</html>

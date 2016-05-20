@@ -1,0 +1,455 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+include "include/connection.php";
+include "include/functions.php";
+include "include/classes.php";
+session_start();
+
+?>
+<!DOCTYPE html>
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US">  <!--<![endif]-->
+	<head>
+	
+		<title>Shortcodes - Tabbed Content | Nantria</title>
+		
+		<!-- META DATA -->
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		
+		<!-- CSS Global Compulsory -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+		
+		<!-- CSS Implementing Plugins -->
+		<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+		<link rel="stylesheet" href="css/ionicons.min.css" type="text/css">
+		<link rel="stylesheet" href="css/animate.min.css" type="text/css">
+		<link rel="stylesheet" href="css/flexslider.css" type="text/css">
+		<link rel="stylesheet" href="css/swiper.min.css" type="text/css">
+		<link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+		<link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+		<link rel="stylesheet" href="css/select2.min.css">
+		<link rel="stylesheet" href="css/vegas.min.css">
+
+		<link rel="stylesheet" href="css/custom.css">
+				
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+		
+		<!--[if lt IE 11]>
+			<link rel="stylesheet" type="text/css" href="css/ie.css">
+		<![endif]-->
+		
+		<!-- FONTS -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic%7CRoboto:400,300,100,500,700,900' rel='stylesheet' type='text/css'>
+		
+		<!-- JS -->
+		<script type="text/javascript" src="js/modernizr.js"></script>
+		
+		<!-- FAVICONS -->
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+
+	</head>
+	<body>
+	
+		<div id="preloader">
+			<div id="loading-animation"></div>
+		</div>
+		
+		<div class="main-container">
+		
+			<div id="top"></div>
+		
+			<header class="main-header style-1 transparent">
+				<div class="header-wrapper">
+				
+					<nav class="header-nav light">
+						<div class="nav-wrapper">		
+							<div class="container-fluid">
+							
+								<div class="nav-block left block-widgets">
+									<button type="button" class="nav-toggle">
+										<i class="ion-navicon"></i>
+									</button>
+									<div class="header-logo">
+										<a href="index.html?login=YES">
+											<img src="images/logo_youngyaa_light.png" class="logo-light" alt="">
+											<img src="images/logo_youngyaa_dark.png" class="logo-dark" alt="">
+										</a>
+									</div>
+								</div>
+								
+								<div class="nav-block right block-widgets">
+									<div class="header-functions">
+										<div class="header-widgets">
+										
+											<!-- Top Search -->
+									
+											
+											<!-- Top Cart -->
+											<div class="header-widget" >
+										
+                                                <a href="#mfp-login-modal<?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo "1";} ?>" class="open-popup-link trigger-widget">
+                                                
+													<i class="fa fa-user"><?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo " Hi,".$_SESSION['username'];} ?></i>
+											
+												</a>
+											
+											</div>
+                                            
+                        <div id="mfp-login-modal1" class="mfp-modal mfp-modal-small mfp-hide">
+							<div class="mfp-modal-content">
+								<h3 class="heading-uppercase text-center margintop-40 marginbottom-40">亲爱的云涯会员，您好</h3>
+							
+                                <button class="button button-noradius button-fullwidth button-border border-thin nomargin" ><a href = "member-profile.html?login=YES">会员中心</a></button>
+                                <hr>
+                                   <button class="button button-noradius button-fullwidth button-border border-thin nomargin" ><a href = "logout.php">登出账号</a></button>
+							</div>
+						</div>  
+                                            
+                        <div id="mfp-login-modal" class="mfp-modal mfp-modal-small mfp-hide">
+							<div class="mfp-modal-content">
+								<h3 class="heading-uppercase text-center margintop-40 marginbottom-40">Login Here</h3>
+								<form class="nobottommargin">
+									<input type="email" id="inputEmail" class="form-control input-border-bottom" placeholder="Email address" required>
+									<input type="password" id="inputPassword" class="form-control input-border-bottom" placeholder="Password" required>
+                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href="member-profile.html">登入</a></button>
+                                    
+                             
+									<div class="row">
+										<div class="col-md-6">
+											<div id="remember" class="checkbox nobottommargin">
+												<label>
+													<input type="checkbox" value="remember-me"> Remember me
+												</label>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<a href="#" class="display-block text-right margintop-10">Forgot password?</a>
+										</div>
+									</div>
+                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href = "registration.html">我要注册</a></button>
+								</form><!-- /form -->
+							</div>
+						</div>
+											
+										</div>						
+									</div>
+								</div>
+
+									<div class="nav-block right block-menu">
+									<ul class="menu">
+
+										
+										
+											
+								</div>
+								</div>
+
+							</div>
+						</div>
+					</nav>
+					
+				</div>
+			</header>
+			<!-- .main-header end -->
+
+			<!-- Page Title -->
+			<section class="page-title page-title-xlarge">
+				<div class="section-container">
+											<div class="col-md-10 col-md-offset-1 text-center">
+							<h3 class="heading-uppercase text-white no-top-margin">会员中心</h3>
+							<p class="nobottommargin text-white">Everything you need to know about our Company.</p>
+						</div>
+				</div>
+				<ol class="breadcrumb">
+					<li><a href="#">Home</a></li>
+					<li><a href="#">Shortcodes</a></li>
+					<li class="active">Tabs</li>
+				</ol>
+				<div class="overlay">
+					<div class="overlay-color background-dark-5- opacity-30"></div>
+					<div class="overlay-image parallax-background" style="background-image: url('demo/images/shortcodes.jpg');" data-stellar-background-ratio="0.4"></div>
+				</div>
+			</section><!-- .page-title end -->
+			
+			
+
+			
+
+			<section class="section">
+				<div class="section-container">
+					<div class="container">
+						<div class="paddingbottom-50">
+							<h4 class="heading-uppercase text-center nobottommargin">会员中心</h4>
+						</div>
+						<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<!-- Nav tabs - Icon -->
+								<ul class="nav nav-tabs ico">
+									<li class="active">
+										<a href="#first-tab-ico" data-toggle="tab">
+											<i class="ion-ios-world-outline"></i><span>我的PLAN</span>
+										</a>
+									</li>
+									<li>
+										<a href="#second-tab-ico" data-toggle="tab">
+										<i class="ion-ios-analytics-outline"></i><span>我的信息</span>
+										</a>
+									</li>
+									<li>
+										<a href="#third-tab-ico" data-toggle="tab">
+										<i class="ion-ios-compose-outline"></i><span>我的积分</span>
+										</a>
+									</li>
+									<li>
+										<a href="#fourth-tab-ico" data-toggle="tab">
+										<i class="ion-ios-film-outline"></i><span>修改密码</span>
+										</a>
+									</li>
+								</ul>
+								<!-- Tab panes - Icon -->
+								<div class="tab-content ico">
+									<div class="tab-pane text-center active" id="first-tab-ico">
+								  <div class="col-md-offset-4 col-md-4">
+                                      <?php if($_SESSION['planlevel'] == 1){ ?>
+											<div class="plan background-grey recommended">
+												<div class="head">
+													<h3>尊贵钻石大神</h3>
+												</div>
+												<div class="price">
+													<h3 class="text-white">
+														<span class="symbol">$</span>
+														49
+													</h3>
+													<h4 class="text-white">每年</h4>
+													<div class="overlay">
+														<div class="overlay-color gradient-2 opacity-90"></div>
+														<div class="overlay-image cover-background" style="background-image: url('demo/images/image-2.jpg');"></div>
+													</div>
+												</div>
+												<ul class="item-list">
+													<li>
+														<strong>100家 </strong>
+														折扣商家
+													</li>
+													<li>
+														<strong>50个</strong>
+														巴拉巴拉
+													</li>
+													<li>
+														<strong>无限</strong>
+														Messages
+													</li>
+													<li>
+														<strong>25场</strong>
+														免费Party
+													</li>
+													<li>
+														<strong>Endless</strong>
+														Support
+													</li>
+												</ul>
+												<button type="button" class="button button-rounded">升级会员</button>
+											</div>
+                                      <?php } else { ?>
+                                      
+                                        <div class="plan background-grey">
+										<div class="head">
+											<h3>基础会员</h3>
+										</div>
+										<div class="price">
+											<h3 class="text-white">
+												<span class="symbol">$</span>
+												0
+											</h3>
+											<h4 class="text-white">每月</h4>
+											<div class="overlay">
+												<div class="overlay-color gradient-1 opacity-90"></div>
+												<div class="overlay-image cover-background" style="background-image: url('demo/images/image-1.jpg');"></div>
+											</div>
+										</div>
+										<ul class="item-list">
+													<li>
+														<strong>50家 </strong>
+														折扣商家
+													</li>
+													<li>
+														<strong>20个</strong>
+														巴拉巴拉
+													</li>
+													<li>
+														<strong>10</strong>
+														Messages
+													</li>
+													<li>
+														<strong>0场</strong>
+														免费Party
+													</li>
+													<li>
+														<strong>Endless</strong>
+														Support
+													</li>
+												</ul>
+										<button type="button" class="button button-rounded">升级会员</button>
+									</div>
+                                      <?php } ?>
+										</div>
+									</div>
+									<div class="tab-pane text-center" id="second-tab-ico">
+											<section class="section paddingtop-20">
+				<div class="section-container">
+					
+					<div class="container">
+						
+                        
+							<div class="col-md-offset-2 col-md-6 marginbottom-55">
+								
+								<label class="input-desc">用户名</label>
+								<input class="form-control input-border-bottom" type="text" placeholder="<?php echo $_SESSION['username']; ?>">
+
+								<label class="input-desc">电子邮箱</label>
+								<input class="form-control input-border-bottom" type="text" placeholder="<?php echo $_SESSION['useremail']; ?>">
+
+								<label class="input-desc">其他</label>
+								<input class="form-control input-border-bottom" type="text" placeholder="Input Large">
+                                <a href="#" class="button button-large button-red">保存设置</a>
+							</div>
+						</div>
+                    </section>
+									</div>
+									<div class="tab-pane text-center" id="third-tab-ico">
+									<div class="row">
+							<div class="col-md-10 col-md-offset-1">
+								<div class="progress progress-1">
+									<div class="progress-bar" role="progressbar" aria-valuenow="<?php echo $_SESSION['rewards']; ?>" aria-valuemin="0" aria-valuemax="100" style="width:<?php echo $_SESSION['rewards']/1000*100; ?>%;">
+										<span class="title">云涯点数：<?php echo $_SESSION['rewards']; ?></span>
+									</div>
+								</div>
+                                        </div>
+                                        </div>
+									</div>
+									<div class="tab-pane text-center" id="fourth-tab-ico">
+											<div class="col-md-offset-3 col-md-6">
+							
+
+								<div class="form-group has-success">
+									<label class="control-label" for="inputSuccess1">请输入旧密码</label>
+									<input type="text" class="form-control" id="inputSuccess1">
+								</div><!-- End .form-group -->
+								<div class="form-group has-warning">
+									<label class="control-label" for="inputWarning1">请输入新密码</label>
+									<input type="text" class="form-control" id="inputWarning1">
+								</div><!-- End .form-group -->
+								<div class="form-group has-error">
+									<label class="control-label" for="inputError1">请再次输入新密码</label>
+									<input type="text" class="form-control" id="inputError1">
+								</div><!-- End .form-group -->
+                                <a href="#" class="button button-large button-red">更改密码</a>
+								
+							</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+
+		
+			
+			
+
+			<!-- Footer -->
+			<footer class="site-footer section background-grey nobottompadding">
+				<div class="section-container">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-4 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">About Us</h5>
+									<p>We are creative developers. Made by Bluminethemes is sign under beautiful site templates created by us for people like us.</p>
+								</aside>
+							</div>
+							<div class="col-md-2 col-md-offset-2 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">Company</h5>
+									<ul>
+										<li><a href="about-1.html">About Company</a></li>
+										<li><a href="about-2.html">What We Do</a></li>
+										<li><a href="about-3.html">What We Think</a></li>
+									</ul>
+								</aside>
+							</div>
+							<div class="col-md-2 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">Services</h5>
+									<ul>
+										<li><a href="services-1.html">Graphic Design</a></li>
+										<li><a href="services-2.html">Web Development</a></li>
+										<li><a href="services-3.html">Copywriting</a></li>
+										<li><a href="services-1.html">Branding</a></li>
+									</ul>
+								</aside>
+							</div>
+							<div class="col-md-2 col-sm-6">
+								<aside class="widget widget_text">
+									<h5 class="widget-title">Introduction</h5>
+									<ul>
+										<li><a href="about-1.html">Team Members</a></li>
+										<li><a href="about-1.html">Testimonials</a></li>
+										<li><a href="about-1.html">Our Clients</a></li>
+									</ul>
+								</aside>
+							</div>
+						</div>
+					</div>
+					<!-- Copyright -->
+					<div class="copyright background-white">
+						<div class="container">
+							<div class="row">
+								<div class="col-md-6 col-sm-6 text-left">
+								© 2016 Nantria - All Rights Reserved
+								</div>
+								<div class="col-md-6 col-sm-6">
+									<nav class="socials-icons pull-right">
+										<ul>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-facebook"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-twitter"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-googleplus"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-pinterest"></i></a></li>
+											<li><a href="#" class="social-icon social-clear"><i class="ion-social-dribbble-outline"></i></a></li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div><!-- .copyright end -->
+				</div>
+			</footer><!-- .site-footer end -->
+			
+			<button class="backToTop"><i class="fa fa-angle-up"></i></button>
+			
+		</div>
+
+		<!-- JS -->
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/plugins.js"></script>
+
+		<script type="text/javascript" src="js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,449 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+include "include/connection.php";
+include "include/functions.php";
+?>
+
+
+   
+<!DOCTYPE html>
+<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en-US">  <!--<![endif]-->
+	<head>
+	
+		<title>Login - Style 1 | Nantria</title>
+		
+		<!-- META DATA -->
+		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<meta name="author" content="">
+		
+		<!-- CSS Global Compulsory -->
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="style.css">
+		
+		<!-- CSS Implementing Plugins -->
+		<link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+		<link rel="stylesheet" href="css/ionicons.min.css" type="text/css">
+		<link rel="stylesheet" href="css/animate.min.css" type="text/css">
+		<link rel="stylesheet" href="css/flexslider.css" type="text/css">
+		<link rel="stylesheet" href="css/swiper.min.css" type="text/css">
+		<link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+		<link rel="stylesheet" href="css/owl.carousel.css" type="text/css">
+		<link rel="stylesheet" href="css/select2.min.css">
+		<link rel="stylesheet" href="css/vegas.min.css">
+
+		<link rel="stylesheet" href="css/custom.css">
+        
+        <script src="dist/sweetalert.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="dist/sweetalert.css">
+			
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src="js/respond.min.js"></script>
+		<![endif]-->
+		
+		<!--[if lt IE 11]>
+			<link rel="stylesheet" type="text/css" href="css/ie.css">
+		<![endif]-->
+		
+		<!-- FONTS -->
+		<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic%7CRoboto:400,300,100,500,700,900' rel='stylesheet' type='text/css'>
+		
+		<!-- JS -->
+		<script type="text/javascript" src="js/modernizr.js"></script>
+  
+		
+		<!-- FAVICONS -->
+		<link rel="shortcut icon" href="images/favicon.ico">
+		<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+        
+
+	</head>
+	<body>
+	
+		<div id="preloader">
+			<div id="loading-animation"></div>
+		</div>
+		
+		<div class="main-container">
+		
+			<div id="top"></div>
+		
+		<header class="main-header style-1 transparent">
+				<div class="header-wrapper">
+				
+					<nav class="header-nav light">
+						<div class="nav-wrapper">		
+							<div class="container-fluid">
+							
+								<div class="nav-block left block-widgets">
+									<button type="button" class="nav-toggle">
+										<i class="ion-navicon"></i>
+									</button>
+									<div class="header-logo">
+										<a href="index.html">
+											<img src="images/logo_youngyaa_light.png" class="logo-light" alt="">
+											<img src="images/logo_youngyaa_dark.png" class="logo-dark" alt="">
+										</a>
+									</div>
+								</div>
+								
+								<div class="nav-block right block-widgets">
+									<div class="header-functions">
+										<div class="header-widgets">
+										
+											<!-- Top Search -->
+									
+											
+											<!-- Top Cart -->
+											<div class="header-widget" >
+										
+                                                <a href="#mfp-login-modal" class="open-popup-link trigger-widget">
+                                                
+													<i class="fa fa-user"></i>
+											
+												</a>
+											
+											</div>
+                                            
+                        <div id="mfp-login-modal" class="mfp-modal mfp-modal-small mfp-hide">
+							<div class="mfp-modal-content">
+								<h3 class="heading-uppercase text-center margintop-40 marginbottom-40">Login Here</h3>
+								<form class="nobottommargin">
+									<input type="email" id="inputEmail" class="form-control input-border-bottom" placeholder="Email address" required>
+									<input type="password" id="inputPassword" class="form-control input-border-bottom" placeholder="Password" required>
+                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href="member-profile.html">登入</a></button>
+                                    
+                             
+									<div class="row">
+										<div class="col-md-6">
+											<div id="remember" class="checkbox nobottommargin">
+												<label>
+													<input type="checkbox" value="remember-me"> Remember me
+												</label>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<a href="#" class="display-block text-right margintop-10">Forgot password?</a>
+										</div>
+									</div>
+                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href = "registration.html">我要注册</a></button>
+								</form><!-- /form -->
+							</div>
+						</div>
+											
+										</div>						
+									</div>
+								</div>
+
+								<div class="nav-block right block-menu">
+									<ul class="menu">
+
+										<li>
+											<a href="index.html">首页</a>
+									
+										</li>
+
+										<li>
+											<a href="about.html">关于我们</a>
+										
+										</li>
+                                        <li>
+											<a href="pricing-2.html">会员计划</a>
+										
+										</li>
+										
+										<li>
+											<a href="events.html">我们的活动</a>
+										
+										</li>
+										
+										<li>
+											<a href="discount.html">合作折扣伙伴</a>
+											
+										</li>
+										
+										<li>
+											<a href="blog.html">新闻博客</a>
+											
+										</li>
+										
+										<li>
+											<a href="contact.html">联系我们</a>
+                                        </li>
+											
+								</div>
+
+							</div>
+						</div>
+					</nav>
+					
+				</div>
+			</header>
+			<!-- .main-header end -->
+            
+
+			<section id="login" class="fullscreen-element">
+            
+            <div class="row" id="succecced" style="display:none">
+				<div class="col-md-10 col-md-offset-1">
+				    <div class="text-left">
+       					<div class="alert alert-success">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+								<strong>注册成功！</strong>，我们已经发送一封<strong>激活邮件</strong>到您的注册邮箱中。在激活操作完成后，您可以尽情享受我们的福利了！
+								<i class="icon icon-badges-votes-10"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row" id="failed" style="display:none">
+				<div class="col-md-10 col-md-offset-1">
+				    <div class="text-left">
+       					<div class="alert alert-danger">
+								<button type="button" class="close" data-dismiss="alert" aria-hidden="true"><i class="fa fa-times"></i></button>
+                            <strong>抱歉，您的注册没有成功！</strong>，您可以<a href = "http://localhost//newyoung/registration.html">点击这里</a>重新尝试注册！
+								<i class="icon icon-badges-votes-10"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+				<div class="section-container" id = "register_form">
+					<div class="table-container">
+						<div class="table-content">
+							<div class="container">
+								<div class="row">
+									<div class="col-md-4 col-md-offset-4">
+									
+										<div class="background-white padding-30">
+											<h3 class="heading-uppercase text-center marginbottom-40" id="regtitle">云涯会员注册</h3>
+                                            <p id="nonresponse" style="display:none"><a href="http://localhost//newyoung/registration.html">若长时间无响应，请点击这里再次尝试注册</a></p>
+                                            
+											<form method="POST" action="" id = "registration_form" name="registration_form">
+                                                
+                                                <input type="text" id="inputName" name = "inputName" class="form-control input-border-bottom" placeholder="Username" oninput="checkName()" required>
+                                                <p id = "outputName" style="display:inline;text-align:center;"></p>
+                                                
+                                                <input type="text" id="theemail" name = "theemail" class="form-control input-border-bottom" placeholder="Email address" oninput="checkmyEmail()" required>
+                                                <p id = "outputEmail" style="display:inline;text-align:center;"></p>
+                                                
+												<!--<input type="text" id="inputEmail" name="inputEmail" class="form-control input-border-bottom" placeholder="Email address" oninput="checkmyEmail()" required>
+                                                <p id = "outputEmail" style="display:inline;text-align:center;"></p> -->
+                                                
+												<input type="password" id="thepassword" name="thepassword" class="form-control input-border-bottom" placeholder="Password" oninput="checkPass()" required>
+                                                <p id = "outputpassword" style="display:inline;text-align:center;"></p>
+                                                
+                                                <input type="password" id="inputPasswordd" name="inputPasswordd"  class="form-control input-border-bottom" placeholder="Confirm Password" oninput="checkPassc()"  required>
+                                                <p id = "outputpasswordc" style="display:inline;text-align:center;"></p>
+                                                
+												<button  id = "regbutton" class="button button-border button-noradius button-fullwidth nomargin" type="submit" style="display:none">注册</button>
+                                               
+											
+											</form><!-- /form -->
+                                            <img src="img/245.gif" id="img" align="middle" style="display:none">
+										</div><!-- /card-container -->
+                                 
+																
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="overlay">
+					<div class="overlay-color background-indigo opacity-90"></div>
+					<div class="overlay-image cover-background" style="background-image: url('demo/images/image-5.jpg');"></div>
+				</div>
+			</section>
+        <script>
+        var namecheck; 
+        var emailcheck; 
+        var passcheck; 
+        var passcheckc; 
+        
+        function checkName(){
+        var a = document.getElementById("inputName").value;
+        var pattA = /^[a-z0-9 \W]{2,50}$/i;
+        var resultA = a.search(pattA);
+        //var namecheck = true; 
+            
+        if (a === undefined || a === null || a.length <=0){
+                                          
+        document.getElementById("outputName").innerHTML = "请输入姓名".fontcolor("blue");
+        namecheck = true;                        
+        }
+            else if ( resultA == -1){ // "-1" means that the pattA is not matched and the input is invalidated.
+        document.getElementById("outputName").innerHTML = "输入有误，姓名长度请在2-50个字符以内".fontcolor("red");
+         namecheck = true;                                
+            }
+            else {
+                document.getElementById("outputName").innerHTML = "正确".fontcolor("green");
+                namecheck = false;
+                
+                }  
+            console.log(a);
+            
+            if(namecheck == false && passcheck == false && passcheckc == false && emailcheck == false){
+                 $('#regbutton').show();
+             }
+            
+            else
+                $('#regbutton').hide();
+         
+            }
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        function checkmyEmail(){
+        var b = document.getElementById("theemail").value.trim();
+        var pattB = /^[^@ ]{1,50}[@]{1}[a-z0-9]{1,}[.]{1}[a-z]{1,}[.]{0,1}[a-z]{1,}$/i; 
+        var resultB = b.search(pattB);
+        //var data = '3';
+        //var emailcheck = true;
+                                     
+        if (b === undefined || b === null || b.length <=0){
+                                             
+        document.getElementById("outputEmail").innerHTML = "请输入您的邮箱".fontcolor("blue");
+          emailcheck = true;  
+                                     
+        }
+            else if ( resultB == -1){ // "-1" means that the pattA is not matched and the input is invalidated.
+        document.getElementById("outputEmail").innerHTML = "输入有误，请确保邮箱格式正确".fontcolor("red");
+           emailcheck = true;                              
+            }
+            else {
+              
+              $(document).ready(function() {
+    //listens for typing on the desired field
+            //document.getElementById("outputEmail").innerHTML = "<img alt="" src="img/AjaxLoader1.gif" />";
+            //$("#outputEmail").html('<img alt="" src="/img/AjaxLoader1.gif" />');
+ 
+                  
+                  
+              
+        $.post("ajax_process.php", {aaEmail:b},
+            function(result) {
+                if(result == 1) {
+                    //the email is available
+                document.getElementById("outputEmail").innerHTML = "正确".fontcolor("green");
+                emailcheck = false;
+                }
+                else {
+                    //the email is not available
+                    document.getElementById("outputEmail").innerHTML = "邮箱地址重复，请重新输入".fontcolor("blue");
+                    emailcheck = true;
+                }
+            
+            });
+     });
+
+
+                console.log(b);
+          
+                }  
+       
+            
+                        if(namecheck == false && passcheck == false && passcheckc == false && emailcheck == false){
+                 $('#regbutton').show();
+             }
+            
+            else
+                $('#regbutton').hide();
+            }
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        function checkPass(){
+        var c = document.getElementById("thepassword").value.trim();
+        var cc = document.getElementById("inputPasswordd").value.trim();
+        var pattC = /^[a-z0-9 \W]{1,15}$/i;
+        var resultC = c.search(pattC);
+        //var passcheck = true;
+                                     
+        if (c === undefined || c === null || c.length <=0){
+                                             
+        document.getElementById("outputpassword").innerHTML = "请输入您的密码".fontcolor("blue");
+        document.getElementById("outputpasswordc").innerHTML = "输入有误".fontcolor("red"); 
+            passcheck = true;
+                                     
+        }
+            else if ( resultC == -1){ // "-1" means that the pattA is not matched and the input is invalidated.
+        document.getElementById("outputpassword").innerHTML = "输入有误，请设置密码长度在15个字符以内".fontcolor("red");
+                passcheck = true;
+                                         
+            }
+            else {
+                document.getElementById("outputpassword").innerHTML = "正确".fontcolor("green");
+                passcheck = false;
+                 //if(c!=cc){
+                      //document.getElementById("outputpasswordc").innerHTML = "输入有误".fontcolor("red");
+                     //passcheck = true;
+                 //}
+                
+                }  
+            console.log(c);
+            
+                        if(namecheck == false && passcheck == false && passcheckc == false && emailcheck == false){
+                 $('#regbutton').show();
+             }
+            
+            else
+                $('#regbutton').hide();
+            }
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////        
+        function checkPassc(){
+        var d = document.getElementById("thepassword").value.trim();
+        var dd = document.getElementById("inputPasswordd").value.trim();
+        //var passcheckc = true;
+        
+        if (d === undefined || d === null || d.length <=0){
+                                             
+        document.getElementById("outputpasswordc").innerHTML = "请再次输入您的密码".fontcolor("blue");
+        //document.getElementById("outputpasswordc").innerHTML = "输入有误".fontcolor("red"); 
+            passcheckc = true;
+                                     
+        }
+       else if(d == dd){
+            document.getElementById("outputpasswordc").innerHTML = "正确".fontcolor("green");
+           passcheckc = false;
+       }
+        else{
+            document.getElementById("outputpasswordc").innerHTML = "输入有误".fontcolor("red");
+            passcheckc = true;
+        }
+   console.log(dd);
+            
+            if(namecheck == false && passcheck == false && passcheckc == false && emailcheck == false){
+                 $('#regbutton').show();
+             }
+            
+            else
+                $('#regbutton').hide();
+        }
+ /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+
+        </script>
+
+			
+			
+			
+			<button class="backToTop"><i class="fa fa-angle-up"></i></button>
+			
+		</div>
+
+		<!-- JS -->
+		
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/plugins.js"></script>
+		<script type="text/javascript" src="js/main.js"></script>
+        <script type = "text/javascript" src="Ajax_submit.js"></script>
+
+
+	</body>
+</html>
