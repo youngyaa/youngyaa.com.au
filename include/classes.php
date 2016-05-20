@@ -13,6 +13,8 @@ class user
     public $userhash = '';
     public $match = 0;
     public $loginfetch = '';
+    public $cardnumber = '';
+    public $validdate = '';
 }
 
 class shop

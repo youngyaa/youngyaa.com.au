@@ -11,10 +11,10 @@ function confirm_query($result_set) {
 		}
 	}
 
-function registration_query($USERNAME,$EMAIL,$PASSWORD,$DATE,$HASH){
+function registration_query($USERNAME,$EMAIL,$PASSWORD,$DATE,$HASH,$NUM,$VALID){
     global $connection;
     
-    $sql = "insert into users(username, useremail,userpassword,registrationDate,activateURL) values('$USERNAME','$EMAIL','$PASSWORD','$DATE','$HASH')";
+    $sql = "insert into users(username, useremail,userpassword,registrationDate,activateURL,cardnumber,validdate) values('$USERNAME','$EMAIL','$PASSWORD','$DATE','$HASH','$NUM','$VALID')";
     $add_newusers = mysqli_query($connection, $sql);
     confirm_query($add_newusers);
     return $add_newusers;

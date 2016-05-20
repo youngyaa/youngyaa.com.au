@@ -16,8 +16,28 @@ session_start();
     $register->useremail= $_POST['theemail'];
     $register->userpassword = md5($_POST['thepassword']);
     $register->registerdate = date("Y-m-d");
+    $register->validdate = date('Y-m-d',strtotime("+365 day"));
     $register->userhash = md5( rand(0,1000) );
-    $register->reg = registration_query($register->username,$register->useremail,$register->userpassword,$register->registerdate,$register->userhash);
+    
+     
+    
+    $chars = "0123456789";
+    $register->cardnumber = "";
+    for($g = 0; $g<2;$g++){
+                                    
+    if(isset($i) == 5)
+    $register->cardnumber.="-";
+                                        
+    for ($i = 0; $i < 5; $i++) {
+        $register->cardnumber.= $chars[mt_rand(0, strlen($chars)-1)];
+                                    
+        }
+    }
+     
+     
+     
+    
+    $register->reg = registration_query($register->username,$register->useremail,$register->userpassword,$register->registerdate,$register->userhash,$register->cardnumber,$register->validdate);
      
      
      
@@ -46,7 +66,7 @@ session_start();
           ------------------------
  
           请点击此链接来激活您的云涯账号：
-          http://localhost//newyoung/index.html?email='.$register->useremail.'&hash='.$register->userhash.'
+          http://www.youngyaa.com.au/index.html?email='.$register->useremail.'&hash='.$register->userhash.'
  
           ';
         
@@ -94,6 +114,8 @@ if(isset($_POST['loginEmail']) && isset($_POST['loginPassword'])){
         $_SESSION['useremail'] = $row['useremail'];
         $_SESSION['userpassword'] = $row['userpassword'];
         $_SESSION['rewards'] = $row['rewards'];
+        $_SESSION['number'] = $row['cardnumber'];
+        $_SESSION['valid'] = $row['validdate'];
             
         
         //redirect the URL 

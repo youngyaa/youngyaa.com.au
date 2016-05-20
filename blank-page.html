@@ -89,7 +89,25 @@ session_start();
 					<div class="container">
 						<div class="row">
 							<div class="col-md-10 col-md-offset-1">
-								<p>Nulla et leo lacinia nulla ornare scelerisque. Nulla facilisi. Nullam euismod at velit id porttitor. Morbi pretium consequat lacus eu rhoncus. Aenean pellentesque erat ac erat tincidunt, quis varius lectus molestie. Nullam eget neque lacus. Suspendisse vitae condimentum tortor, non pretium leo. Nunc porta est dolor, vitae mattis purus pharetra quis. Curabitur in hendrerit enim. Integer urna orci, elementum quis finibus et, convallis vitae arcu. Quisque gravida in sem nec egestas. Vestibulum sed fringilla erat. Quisque dapibus enim vitae eleifend tincidunt. Ut ac mollis risus, at varius tortor. Nullam gravida sodales eros, et pharetra libero varius eu. Ut felis ex, suscipit ut nisi in, cursus sagittis risus.</p>
+                                <?php
+                                
+                                    $chars = "0123456789";
+                                    $res = "";
+                                for($g = 0; $g<2;$g++){
+                                    
+                                if(isset($i) == 5)
+                                    $res.="-";
+                                        
+                                for ($i = 0; $i < 5; $i++) {
+                                    $res = $res.$chars[mt_rand(0, strlen($chars)-1)];
+                                    
+                                    }
+                                }
+                                
+                                $today = date("Y-m-d");
+                                $nextday = date('Y-m-d',strtotime("+365 day"));
+                                ?>
+								<p><?php echo $nextday; ?></p>
 								<a href="index.html?login=YES" class="button button-border button-rounded nobottommargin">返回首页</a>
 							</div>
 						</div>
