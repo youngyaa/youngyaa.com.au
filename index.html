@@ -112,9 +112,9 @@ session_start();
                  
                  $imageLibObj = new imageLib('cardimg/membercard.png');
                  
-                 $imageLibObj -> addText($_SESSION['number'], '300x550', 0, '#ccc', 30, 0, 'image_lib/fonts/Walkway_Bold.ttf');
-                 $imageLibObj -> addText($_SESSION['username'], '300x620', 0, '#ccc', 30, 0, 'image_lib/fonts/cc.ttf');
-                 $imageLibObj -> addText($_SESSION['valid'], '300x690', 0, '#ccc', 30, 0, 'image_lib/fonts/Walkway_Bold.ttf');
+                 $imageLibObj -> addText($_SESSION['number'], '300x550', 0, '#ccc', 30, 0, 'image_lib/fonts/general.ttf');
+                 $imageLibObj -> addText($_SESSION['username'], '300x620', 0, '#ccc', 30, 0, 'image_lib/fonts/general.ttf');
+                 $imageLibObj -> addText($_SESSION['valid'], '300x690', 0, '#ccc', 30, 0, 'image_lib/fonts/general.ttf');
                  
                  $membercard = "membercard_".$_SESSION['userid'].".jpg";
                  
