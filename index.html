@@ -110,7 +110,7 @@ session_start();
                  $_SESSION['valid'] =  $activation->loginfetch['validdate'];
                  
                  
-                 $imageLibObj = new imageLib('cardimg/membercard.png');
+                 $imageLibObj = new imageLib('images/membership-cards/membercard.png');
                  
                  $imageLibObj -> addText($_SESSION['number'], '300x550', 0, '#ccc', 30, 0, 'image_lib/fonts/general.ttf');
                  $imageLibObj -> addText($_SESSION['username'], '300x620', 0, '#ccc', 30, 0, 'image_lib/fonts/general.ttf');
@@ -118,7 +118,7 @@ session_start();
                  
                  $membercard = "membercard_".$_SESSION['userid'].".jpg";
                  
-                 $imageLibObj -> saveImage('cardimg/'.$membercard, 100);
+                 $imageLibObj -> saveImage('images/membership-cards/'.$membercard, 100);
                  
                 ?>
                 
@@ -255,7 +255,7 @@ session_start();
 										</li>
 										
 										<li>
-											<a href="blank-page.html">合作折扣伙伴</a>
+											<a href="discount.html?login=YES">合作折扣伙伴</a>
 											
 										</li>
 										

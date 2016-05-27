@@ -1,10 +1,18 @@
+<?php
+header('Content-Type: text/html; charset=utf-8');
+include "include/connection.php";
+include "include/functions.php";
+include "include/classes.php";
+include('image_lib/image_lib_class.php');
+session_start();
+?>
 <!DOCTYPE html>
 <!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en-US"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en-US"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en-US">  <!--<![endif]-->
 	<head>
 	
-		<title>Portfolio - 3 Columns | Nantria</title>
+		<title>云涯体育传媒 | 新视野新态度</title>
 		
 		<!-- META DATA -->
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8">
@@ -83,7 +91,7 @@
 									<div class="header-logo">
 										<a href="index.html">
 											<img src="images/logo_youngyaa_light.png" class="logo-light" alt="">
-											<img src="images/logo_youngyaa_dark.png" class="logo-dark" alt="">
+											<img src="images/logo_dark.png" class="logo-dark" alt="">
 										</a>
 									</div>
 								</div>
@@ -98,9 +106,9 @@
 											<!-- Top Cart -->
 											<div class="header-widget" >
 										
-                                                <a href="#mfp-login-modal" class="open-popup-link trigger-widget">
+                                                <a href="#mfp-login-modal<?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo "1";} ?>" class="open-popup-link trigger-widget" style="text-align:center">
                                                 
-													<i class="fa fa-user"></i>
+                                                    <i class="fa fa-user" style="font-size:15px"><?php if(isset($_SESSION['login_user']) && ($_SESSION['login_user']) == 'YES' && isset($_GET['login']) && $_GET['login'] == 'YES'){echo $_SESSION['username'];} ?></i>
 											
 												</a>
 											
@@ -139,36 +147,36 @@
 									<ul class="menu">
 
 										<li>
-											<a href="index.html">首页</a>
+											<a href="index.html?login=YES">首页</a>
 									
 										</li>
 
 										<li>
-											<a href="about.html">关于我们</a>
+											<a href="about.html?login=YES">关于我们</a>
 										
 										</li>
                                         <li>
-											<a href="pricing-2.html">会员计划</a>
+											<a href="blank-page.html">会员计划</a>
 										
 										</li>
 										
 										<li>
-											<a href="events.html">我们的活动</a>
+											<a href="blank-page.html">我们的活动</a>
 										
 										</li>
 										
 										<li>
-											<a href="discount.html">合作折扣伙伴</a>
+											<a href="discount.html?login=YES">合作折扣伙伴</a>
 											
 										</li>
 										
 										<li>
-											<a href="blog.html">新闻博客</a>
+											<a href="blank-page.html">新闻博客</a>
 											
 										</li>
 										
 										<li>
-											<a href="contact.html">联系我们</a>
+											<a href="blank-page.html">联系我们</a>
                                         </li>
 											
 								</div>
@@ -185,8 +193,8 @@
 			<section class="page-title page-title-xlarge">
 				<div class="section-container">
 					<div class="col-md-11 text-right sm-text-center">
-						<h3 class="heading-uppercase no-top-margin font-large text-white">Our Shops</h3>
-						<p class="nobottommargin text-white">Showcase of Our Awesome partners.</p>
+						<h3 class="heading-uppercase no-top-margin font-large text-white">折扣如此之近</h3>
+						<p class="nobottommargin text-white">您只需要展示云涯会员卡</p>
 					</div>
 				</div>
 				<div class="overlay">
@@ -200,172 +208,48 @@
 					<div class="container">
 						<nav class="portfolio-filter isotope-filter marginbottom-35">
 							<ul>
-								<li><a href="#" class="button-border-color active" data-filter="*">All</a></li>
-								<li><a href="#" class="button-border-color" data-filter=".web">Web</a></li>
-								<li><a href="#" class="button-border-color" data-filter=".brand">Brand</a></li>
-								<li><a href="#" class="button-border-color" data-filter=".design">Design</a></li>
+								<li><a href="#" class="button-border-color active" data-filter="*">全部</a></li>
+								<li><a href="#" class="button-border-color" data-filter=".web">美食</a></li>
+								<li><a href="#" class="button-border-color" data-filter=".brand">培训</a></li>
+								<li><a href="#" class="button-border-color" data-filter=".design">运动</a></li>
+                                <li><a href="#" class="button-border-color" data-filter=".design">休闲</a></li>
 							</ul>
 						</nav>
-						
+		
 						<!-- Portfolio Items -->
 						<div class="portfolio-container isotope-container row">
-					
+					       <?php
+                            
+                            //$homeshop = new shop();
+                            
+                            $shopbrowse = display_homepage_shop();
+                            
+                            while($Shopbrowse =  mysqli_fetch_assoc($shopbrowse)){
+                            
+                            ?>
 							<article class="portfolio-item isotope-item col-md-4 col-sm-6 web">
-								<a href="#" class="cd-modal-trigger">
+								<a href="#" onclick='return false'>
 									<div class="project-container">
 										<div class="image-container">
-											<img src="demo/images/shop/discount1.jpg" alt="" class="img-responsive">
+											<img src="img\shops\<?php echo $Shopbrowse['shopimagename']; ?>" alt="" class="img-responsive">
 										</div>
 										<div class="project-details">
 											<div class="details-container">
 												<div class="details-text">
-													<h5 class="details-title">Logo Design</h5>
-													<p class="details-category">Web / Live</p>
+													<h5 class="details-title"><?php echo $Shopbrowse['shortdescrption']; ?></h5>
+													<p class="details-category"><?php echo $Shopbrowse['address']; ?></p>
 												</div>
 											</div>
 											<div class="overlay background-dark-5 opacity-70"></div>
 										</div>
 									</div>
+                                         <div class="product-desc">
+	                                       <div class="product-title"><h3><a href="#" onclick='return false'><?php echo $Shopbrowse['shopname']; ?></a></h3></div>
+	                                       <div class="product-price"><ins><?php echo $Shopbrowse['discount']; ?></ins></div>
+                                        </div>
 								</a>
 							</article>
-                            
-          <div class="cd-modal">
-	         <div class="modal-content">
-		        <h1>My Modal Content</h1>
-		
-		
-		      <p>
-			     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad modi repellendus, optio eveniet eligendi molestiae? Fugiat, temporibus! A rerum pariatur neque laborum earum, illum voluptatibus eum voluptatem fugiat, porro animi tempora? Sit harum nulla, nesciunt molestias, iusto aliquam aperiam est qui possimus reprehenderit ipsam ea aut assumenda inventore iste! Animi quaerat facere repudiandae earum quisquam accusamus tempora, delectus nesciunt, provident quae aliquam, voluptatum beatae quis similique in maiores repellat eligendi voluptas veniam optio illum vero! Eius, dignissimos esse eligendi veniam.
-		      </p>
-              		
-				
-
-		      <p>
-			     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Debitis saepe amet sit fugit rerum, corporis minus vitae officia quaerat incidunt voluptate, blanditiis ea est quibusdam voluptas animi quasi totam magni, commodi praesentium. Possimus quam illo ipsam iste unde totam cupiditate deleniti, impedit assumenda hic eligendi natus tempora dolores quod mollitia ab non sunt eaque adipisci, suscipit quas aliquid officiis beatae. Necessitatibus voluptatibus, perferendis tenetur perspiciatis adipisci nesciunt eum ex fuga commodi iure numquam enim rem ullam labore nisi magni sint voluptatem quos! Eum iure exercitationem voluptates repellendus culpa doloremque laborum animi illum, sint fugit soluta possimus a fuga veritatis molestias corporis placeat illo pariatur dolor reiciendis earum, sapiente omnis. Placeat maiores omnis, porro officia, laborum eos. Fugiat mollitia inventore consequuntur odit eaque, rerum recusandae, eum sint molestiae consequatur culpa deserunt quae aliquid dolor tempora tenetur architecto repellendus enim quasi atque, odio voluptas. Tenetur repellendus explicabo ipsum inventore quia aut eos expedita necessitatibus asperiores blanditiis! Delectus nisi laudantium ipsum! Quasi blanditiis corrupti dicta maiores placeat laboriosam delectus ipsum facere voluptas, magnam voluptatibus, perferendis alias ullam saepe, perspiciatis recusandae voluptates, dolores praesentium?
-		      </p>
-	      </div> <!-- .modal-content -->
-
-	       <a href="#0" class="modal-close">Close</a>
-         </div> <!-- .cd-modal -->
-
-        <div class="cd-transition-layer"> 
-	   <div class="bg-layer"></div>
-    </div> <!-- .cd-transition-layer -->
-							
-							<article class="portfolio-item isotope-item col-md-4 col-sm-6 brand">
-								<a href="#" class="cd-modal-trigger">
-									<div class="project-container">
-										<div class="image-container">
-											<img src="demo/images/shop/discount2.jpg" alt="" class="img-responsive">
-										</div>
-										<div class="project-details">
-											<div class="details-container">
-												<div class="details-text">
-													<h5 class="details-title">Labels</h5>
-													<p class="details-category">Brand / Art</p>
-												</div>
-											</div>
-											<div class="overlay background-dark-5 opacity-70"></div>
-										</div>
-									</div>
-								</a>
-							</article>
-                            
-                            <div class="cd-transition-layer"> 
-	                        <div class="bg-layer"></div>
-                            </div> <!-- .cd-transition-layer -->
-							
-							<article class="portfolio-item isotope-item col-md-4 col-sm-6 web">
-								<a href="#">
-									<div class="project-container">
-										<div class="image-container">
-											<img src="demo/images/shop/discount3.jpg" alt="" class="img-responsive">
-										</div>
-										<div class="project-details">
-											<div class="details-container">
-												<div class="details-text">
-													<h5 class="details-title">Notebook</h5>
-													<p class="details-category">Web / Life</p>
-												</div>
-											</div>
-											<div class="overlay background-dark-5 opacity-70"></div>
-										</div>
-									</div>
-								</a>
-							</article>
-                            
-                            <div class="cd-transition-layer"> 
-	                           <div class="bg-layer"></div>
-                            </div> <!-- .cd-transition-layer -->
-							
-							<article class="portfolio-item isotope-item col-md-4 col-sm-6 web">
-								<a href="#">
-									<div class="project-container">
-										<div class="image-container">
-											<img src="demo/images/shop/discount4.jpg" alt="" class="img-responsive">
-										</div>
-										<div class="project-details">
-											<div class="details-container">
-												<div class="details-text">
-													<h5 class="details-title">Mobile Optimized</h5>
-													<p class="details-category">Web / Life</p>
-												</div>
-											</div>
-											<div class="overlay background-dark-5 opacity-70"></div>
-										</div>
-									</div>
-								</a>
-							</article>
-                            
-                             <div class="cd-transition-layer"> 
-	                           <div class="bg-layer"></div>
-                            </div> <!-- .cd-transition-layer -->
-
-							<article class="portfolio-item isotope-item col-md-4 col-sm-6 design">
-								<a href="#">
-									<div class="project-container">
-										<div class="image-container">
-											<img src="demo/images/shop/discount5.jpg" alt="" class="img-responsive">
-										</div>
-										<div class="project-details">
-											<div class="details-container">
-												<div class="details-text">
-													<h5 class="details-title">Future Watch</h5>
-													<p class="details-category">Design / Watch</p>
-												</div>
-											</div>
-											<div class="overlay background-dark-5 opacity-70"></div>
-										</div>
-									</div>
-								</a>
-							</article>
-                            
-                             <div class="cd-transition-layer"> 
-	                           <div class="bg-layer"></div>
-                            </div> <!-- .cd-transition-layer -->
-							
-							<article class="portfolio-item isotope-item col-md-4 col-sm-6 web">
-								<a href="#">
-									<div class="project-container">
-										<div class="image-container">
-											<img src="demo/images/portfolio/project-6.jpg" alt="" class="img-responsive">
-										</div>
-										<div class="project-details">
-											<div class="details-container">
-												<div class="details-text">
-													<h5 class="details-title">Logo Design</h5>
-													<p class="details-category">Web / Life</p>
-												</div>
-											</div>
-											<div class="overlay background-dark-5 opacity-70"></div>
-										</div>
-									</div>
-								</a>
-							</article>
-                            
-                             <div class="cd-transition-layer"> 
-	                           <div class="bg-layer"></div>
-                            </div> <!-- .cd-transition-layer -->
+                            <?php } ?>
 								
 						</div><!-- .portfolio-container end -->
 					</div>
@@ -388,38 +272,38 @@
 						<div class="row">
 							<div class="col-md-4 col-sm-6">
 								<aside class="widget widget_text">
-									<h5 class="widget-title">About Us</h5>
-									<p>We are creative developers. Made by Bluminethemes is sign under beautiful site templates created by us for people like us.</p>
+									<h5 class="widget-title">关于我们</h5>
+									<p>Young yaa云涯是专业的体育文化传媒公司，业务包括体育营销、赛事运营、品牌推广、赞助商服务，以及在线折扣及周边娱乐等。旨在中国及澳大利亚各大城市承办各种文体赛事和活动，促进中、澳文化及商业的合作交流。</p>
 								</aside>
 							</div>
 							<div class="col-md-2 col-md-offset-2 col-sm-6">
 								<aside class="widget widget_text">
-									<h5 class="widget-title">Company</h5>
+									<h5 class="widget-title">公司</h5>
 									<ul>
-										<li><a href="about-1.html">About Company</a></li>
-										<li><a href="about-2.html">What We Do</a></li>
-										<li><a href="about-3.html">What We Think</a></li>
+										<li><a href="about.html?login=YES">关于公司</a></li>
+										<li><a href="about.html?login=YES">我们的事业</a></li>
+										<li><a href="about.html?login=YES">我们的想法</a></li>
 									</ul>
 								</aside>
 							</div>
 							<div class="col-md-2 col-sm-6">
 								<aside class="widget widget_text">
-									<h5 class="widget-title">Services</h5>
+									<h5 class="widget-title">我们的服务</h5>
 									<ul>
-										<li><a href="services-1.html">Graphic Design</a></li>
-										<li><a href="services-2.html">Web Development</a></li>
-										<li><a href="services-3.html">Copywriting</a></li>
-										<li><a href="services-1.html">Branding</a></li>
+										<li><a href="blank-page.html">活动举办</a></li>
+										<li><a href="blank-page.html">商家折扣</a></li>
+										<li><a href="blank-page.html"></a>会员价格</li>
+										<li><a href="blank-page.html">我们的品牌</a></li>
 									</ul>
 								</aside>
 							</div>
 							<div class="col-md-2 col-sm-6">
 								<aside class="widget widget_text">
-									<h5 class="widget-title">Introduction</h5>
+									<h5 class="widget-title">我们的客户</h5>
 									<ul>
-										<li><a href="about-1.html">Team Members</a></li>
-										<li><a href="about-1.html">Testimonials</a></li>
-										<li><a href="about-1.html">Our Clients</a></li>
+								
+										<li><a href="blank-page.html">客户体验</a></li>
+										<li><a href="blank-page.html">荣誉赞助商</a></li>
 									</ul>
 								</aside>
 							</div>
@@ -430,7 +314,7 @@
 						<div class="container">
 							<div class="row">
 								<div class="col-md-6 col-sm-6 text-left">
-								© 2016 Nantria - All Rights Reserved
+								© 2016 云涯体育传媒有限公司 - All Rights Reserved
 								</div>
 								<div class="col-md-6 col-sm-6">
 									<nav class="socials-icons pull-right">
