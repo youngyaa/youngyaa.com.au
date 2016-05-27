@@ -15,6 +15,7 @@ class user
     public $loginfetch = '';
     public $cardnumber = '';
     public $validdate = '';
+    
 }
 
 class shop
