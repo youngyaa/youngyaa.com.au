@@ -114,13 +114,32 @@ session_start();
 											
 											</div>
                                             
+                         <div id="mfp-login-modal1" class="mfp-modal mfp-modal-small mfp-hide">
+							<div class="mfp-modal-content">
+								<h3 class="heading-uppercase text-center margintop-40 marginbottom-40">亲爱的云涯会员，您好</h3>
+							
+                                <button class="button button-noradius button-fullwidth button-border border-thin nomargin" ><a href = "member-profile.html?login=YES">会员中心</a></button>
+                                <hr>
+                                   <button class="button button-noradius button-fullwidth button-border border-thin nomargin" ><a href = "logout.php">登出账号</a></button>
+							</div>
+						</div>                
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                        <!-- below is the modal for login and register -->        
                         <div id="mfp-login-modal" class="mfp-modal mfp-modal-small mfp-hide">
 							<div class="mfp-modal-content">
 								<h3 class="heading-uppercase text-center margintop-40 marginbottom-40">Login Here</h3>
-								<form class="nobottommargin">
-									<input type="email" id="inputEmail" class="form-control input-border-bottom" placeholder="Email address" required>
-									<input type="password" id="inputPassword" class="form-control input-border-bottom" placeholder="Password" required>
-                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href="member-profile.html">登入</a></button>
+								<form class="nobottommargin" id = "loginform" name = "loginform" method = "POST" action="ajax_process.php">
+									<input type="email" id="loginEmail" name = "loginEmail" class="form-control input-border-bottom" placeholder="Email address" required>
+									<input type="password" id="loginPassword"  name = "loginPassword" class="form-control input-border-bottom" placeholder="Password" required>
+                                     
+                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" id="loginbutton" type="submit">登入</button>
                                     
                              
 									<div class="row">
@@ -135,8 +154,9 @@ session_start();
 											<a href="#" class="display-block text-right margintop-10">Forgot password?</a>
 										</div>
 									</div>
-                                    <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href = "registration.html">我要注册</a></button>
+                                    
 								</form><!-- /form -->
+                                <button class="button button-noradius button-fullwidth button-border border-thin nomargin" type="submit"><a href = "registration.html">我要注册</a></button>
 							</div>
 						</div>
 											
