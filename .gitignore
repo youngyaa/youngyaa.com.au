@@ -2,6 +2,10 @@
 ###################
 images/membership-cards
 
+# Rewrite #
+###################
+*.htaccess
+
 # Compiled source #
 ###################
 *.com
