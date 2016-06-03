@@ -1,5 +1,5 @@
 /////////////////////////////////// registration ajax submit function /////////////////////////////////////////////////////////////
-$("#registration_form").submit(function(e){
+jQuery("#registration_form").submit(function(e){
                 
                 var postdata = $(this).serializeArray();
                 $('#img').show();
@@ -34,12 +34,12 @@ $("#registration_form").submit(function(e){
                 });
                 
                     e.preventDefault(); //STOP default action
-                    e.unbind();
+                    $("#registration_form").unbind("click");
             });
 
 
 ////////////////////////////////// login ajax submit function /////////////////////////////////////////////////////////////////////
-$("#loginbutton").submit(function(e){
+jQuery("#loginbutton").submit(function(e){
                 //e.preventDefault(); //STOP default action
                 var postdata = $(this).serializeArray();
                 //$('#img').show();
