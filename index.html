@@ -665,7 +665,8 @@ session_start();
                             
                             $shopbrowse = display_homepage_shop();
                             
-                            while($Shopbrowse =  mysqli_fetch_assoc($shopbrowse)){
+							$counter = 0;
+                            while(($Shopbrowse =  mysqli_fetch_assoc($shopbrowse)) && $counter<=8){
                             
                             ?>
 							<div class="carousel-item">
@@ -696,7 +697,7 @@ session_start();
 
 							</div>
                             
-                    <?php } ?>
+                    <?php $counter++; } ?>
                             
              
                           
